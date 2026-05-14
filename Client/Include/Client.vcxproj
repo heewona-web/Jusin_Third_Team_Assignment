@@ -119,6 +119,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>../Header;../Include;../../Base;../../Reference/Header</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -147,8 +148,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CBU_Actor.h" />
+    <ClInclude Include="..\Header\CBU_CollisionUtil.h" />
+    <ClInclude Include="..\Header\CBU_MainGame.h" />
+    <ClInclude Include="..\Header\CBU_Object.h" />
+    <ClInclude Include="..\Header\CBU_Player.h" />
+    <ClInclude Include="..\Header\CBU_RenderUtil.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
-    <ClInclude Include="..\Header\CTest.h" />
+    <ClInclude Include="..\Header\Define.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -156,8 +163,13 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CBU_Actor.cpp" />
+    <ClCompile Include="..\Code\CBU_CollisionUtil.cpp" />
+    <ClCompile Include="..\Code\CBU_MainGame.cpp" />
+    <ClCompile Include="..\Code\CBU_Object.cpp" />
+    <ClCompile Include="..\Code\CBU_Player.cpp" />
+    <ClCompile Include="..\Code\CBU_RenderUtil.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
-    <ClCompile Include="..\Code\CTest.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
