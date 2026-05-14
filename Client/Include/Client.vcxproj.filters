@@ -48,6 +48,9 @@
     <ClInclude Include="..\Header\CMainApp.h">
       <Filter>00. MainApp</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CTest.h">
+      <Filter>00. MainApp\04. BU</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -58,6 +61,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMainApp.cpp">
       <Filter>00. MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTest.cpp">
+      <Filter>00. MainApp\04. BU</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
