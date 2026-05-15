@@ -64,6 +64,24 @@
     <Filter Include="01. Mgr\SceneMgr\Scene">
       <UniqueIdentifier>{a81ddebb-6a50-4eff-b675-7c1113364e17}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. MainApp\01. HW\Object">
+      <UniqueIdentifier>{f3a23b77-3d8f-42a0-aa9e-2a9bf5bc94d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\01. HW\Object\Ball">
+      <UniqueIdentifier>{c9f0021b-ccf8-4ec3-802c-9541559c6431}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\01. HW\Scene">
+      <UniqueIdentifier>{2d963e65-9d57-4f80-910b-cd4d2aa1ad5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\01. HW\Mgr">
+      <UniqueIdentifier>{0fe97e96-b3fc-48d0-b7f8-69a67a1e1468}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\01. HW\Mgr\CBmpMgr">
+      <UniqueIdentifier>{5782e98f-dad0-4db4-95bb-7cae963253e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\01. HW\Mgr\CBmpMgr\CMyBmp">
+      <UniqueIdentifier>{6c1e2946-7a33-4479-8af7-2eed89bc0a34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -111,8 +129,20 @@
     <ClInclude Include="..\Header\CScene.h">
       <Filter>01. Mgr\SceneMgr\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CHW_CBall.h">
+      <Filter>00. MainApp\01. HW\Object\Ball</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHW_Obj.h">
+      <Filter>00. MainApp\01. HW</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\HW_Scene.h">
-      <Filter>01. Mgr\SceneMgr\Scene</Filter>
+      <Filter>00. MainApp\01. HW\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHW_BmpMgr.h">
+      <Filter>00. MainApp\01. HW\Mgr\CBmpMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CHW_MyBmp.h">
+      <Filter>00. MainApp\01. HW\Mgr\CBmpMgr\CMyBmp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -149,8 +179,20 @@
     <ClCompile Include="..\Code\CScene.cpp">
       <Filter>01. Mgr\SceneMgr\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CHW_CBall.cpp">
+      <Filter>00. MainApp\01. HW\Object\Ball</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHW_Obj.cpp">
+      <Filter>00. MainApp\01. HW</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\HW_Scene.cpp">
-      <Filter>01. Mgr\SceneMgr\Scene</Filter>
+      <Filter>00. MainApp\01. HW\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHW_BmpMgr.cpp">
+      <Filter>00. MainApp\01. HW\Mgr\CBmpMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CHW_MyBmp.cpp">
+      <Filter>00. MainApp\01. HW\Mgr\CBmpMgr\CMyBmp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
