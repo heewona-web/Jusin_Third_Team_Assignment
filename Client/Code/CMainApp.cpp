@@ -3,6 +3,7 @@
 
 CMainApp::CMainApp()
 {
+	//djfksjfkj
 }
 
 CMainApp::~CMainApp()
