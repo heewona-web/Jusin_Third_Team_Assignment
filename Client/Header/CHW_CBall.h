@@ -17,6 +17,9 @@ public:
 	void MakeWorldMatrix();
 	void SetDir();
 
+	void CheckBoundary();
+	void SetDirection(_vec3 normal );
+
 private:
 	_vec3 m_vOriginCenter; //로컬
 	_vec3 m_vWorldCenter; //월드

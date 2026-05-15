@@ -20,7 +20,7 @@ void CHW_CBall::Initialize()
 
 	m_fRadius = 50.f;
 	m_fSpeed = 0.5f;
-	m_vVelocity = { m_fSpeed , m_fSpeed , 0.f }; //초기 속도
+	m_vVelocity = { m_fSpeed , -m_fSpeed , 0.f }; //초기 속도
 	D3DXVec3Normalize(&m_tInfo.vDir, &m_vVelocity);
 	
 }
@@ -33,9 +33,13 @@ void CHW_CBall::Update()
 
 	//MoveToOrigin(m_vWorldCenter, m_vOriginCenter);
 
-	SetDir();
+	//SetDir();
 
-	//이동 거리 업데이트
+	//경계면 체크
+	CheckBoundary();
+
+	//속도 및 위치 업데이트
+	m_vVelocity = m_tInfo.vDir * m_fSpeed;
 	m_tInfo.vPos += m_vVelocity;
 
 
@@ -67,6 +71,43 @@ void CHW_CBall::MoveToOrigin(_vec3 vWorld, _vec3 Origin)
 {
 	vWorld = Origin;
 	vWorld -= Origin;
+}
+
+
+void CHW_CBall::CheckBoundary()
+{
+
+	if (m_tInfo.vPos.x > 0 && m_tInfo.vPos.x < WINCX && m_tInfo.vPos.y > 0 && m_tInfo.vPos.y < WINCY)
+		return;
+
+	_vec3 n = { 0,0,0 };
+
+
+
+	if (m_tInfo.vPos.x <= 0) {
+		n = { -1, 0, 0 };
+	}
+	if (m_tInfo.vPos.x >= WINCX) {
+		n = { 1, 0, 0 };
+	}
+	if (m_tInfo.vPos.y <= 0) {
+		n = { 0, 1, 0 };
+	}
+	if (m_tInfo.vPos.y >= WINCY) {
+		n = { 0, -1, 0 };
+	}
+
+	SetDirection(n);
+
+
+}
+
+void CHW_CBall::SetDirection(_vec3 normal)
+{
+	float fDot = D3DXVec3Dot(&m_vVelocity, &normal);
+	_vec3 vNewDir = m_vVelocity - 2 * fDot * normal;
+
+	D3DXVec3Normalize(&m_tInfo.vDir, &vNewDir);
 }
 
 void CHW_CBall::SetDir()
@@ -117,6 +158,8 @@ void CHW_CBall::SetDir()
 
 
 }
+
+
 
 
 void CHW_CBall::MakeWorldMatrix()
