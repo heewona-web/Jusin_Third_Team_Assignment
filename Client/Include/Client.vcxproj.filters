@@ -55,6 +55,15 @@
     <Filter Include="00. MainApp\04. BU\02.Util\02.CollisionUtil">
       <UniqueIdentifier>{8a960bf6-bb97-449f-a2d8-91f8c46918fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Mgr">
+      <UniqueIdentifier>{b4289ec5-ac56-4bb5-bcad-547570f5355e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Mgr\SceneMgr">
+      <UniqueIdentifier>{03097d21-a2af-496a-aa62-4525db1ef6da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Mgr\SceneMgr\Scene">
+      <UniqueIdentifier>{a81ddebb-6a50-4eff-b675-7c1113364e17}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -96,6 +105,15 @@
     <ClInclude Include="..\Header\Define.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSceneMgr.h">
+      <Filter>01. Mgr\SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CScene.h">
+      <Filter>01. Mgr\SceneMgr\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\HW_Scene.h">
+      <Filter>01. Mgr\SceneMgr\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -124,6 +142,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CBU_CollisionUtil.cpp">
       <Filter>00. MainApp\04. BU\02.Util\02.CollisionUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSceneMgr.cpp">
+      <Filter>01. Mgr\SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CScene.cpp">
+      <Filter>01. Mgr\SceneMgr\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\HW_Scene.cpp">
+      <Filter>01. Mgr\SceneMgr\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
