@@ -6,6 +6,7 @@ CHW_CBall::CHW_CBall() : m_fSpeed(0.f)
 
 CHW_CBall::~CHW_CBall()
 {
+	Release();
 }
 
 void CHW_CBall::Initialize()
@@ -34,7 +35,7 @@ void CHW_CBall::Initialize()
 
 	m_fSpeed = 0.5f;
 	m_vVelocity = { m_fSpeed , m_fSpeed , 0.f }; //초기 속도
-	D3DXVec3Normalize(&m_tInfo.vDir, &m_vVelocity);
+	D3DXVec3Normalize(&m_tInfo.vDir, &m_vVelocity); 
 	
 }
 
@@ -83,15 +84,6 @@ void CHW_CBall::Release()
 {
 }
 
-void CHW_CBall::MoveToOrigin() 
-{
-	//vOriginPoints와 vWorldPoints의 사이즈는 같을 것임. => Initilize()에서 그렇게 되게끔해줬음
-
-	for (size_t i = 0; i < m_vOriginPoints.size(); ++i) {
-		m_vWorldPoints[i] = m_vOriginPoints[i];
-	}
-}
-
 
 void CHW_CBall::CheckBoundary()
 {
@@ -131,27 +123,5 @@ void CHW_CBall::SetDirection(_vec3 normal)
 
 
 
-void CHW_CBall::MakeWorldMatrix()
-{
-	D3DXMATRIX		matScale, matRotZ, matTrans;
 
-	D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
-	D3DXMatrixIdentity(&matRotZ);
-	if (fabsf(m_vVelocity.x) > 1e-4f) {
-		const float fAngle = atanf(m_vVelocity.y / m_vVelocity.x);
-		D3DXMatrixRotationZ(&matRotZ, fAngle);
-
-	}
-	D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z);
-
-	m_tInfo.matWorld = matScale * matRotZ * matTrans;
-}
-
-void CHW_CBall::AdjustWorldMatrix()
-{
-
-	for (auto& v : m_vWorldPoints) {
-		D3DXVec3TransformCoord(&v, &v, &m_tInfo.matWorld);
-	}
-}
 

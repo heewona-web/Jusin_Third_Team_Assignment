@@ -13,18 +13,10 @@ public:
 	void Release() override;
 
 public:
-	void MoveToOrigin();
-	void MakeWorldMatrix();
-	void AdjustWorldMatrix();
-
 	void CheckBoundary();
 	void SetDirection(_vec3 normal );
 
 private:
-
-	vector<_vec3> m_vOriginPoints; //로컬
-	vector<_vec3> m_vWorldPoints;  //월드
-
 	_vec3 m_vOriginScale;	// 크기
 	_vec3 m_vVelocity;		// 속도
 

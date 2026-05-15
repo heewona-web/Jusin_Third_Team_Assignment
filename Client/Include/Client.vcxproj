@@ -161,6 +161,7 @@
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CScene.h" />
     <ClInclude Include="..\Header\CSceneMgr.h" />
+    <ClInclude Include="..\Header\CHW_Stick.h" />
     <ClInclude Include="..\Header\Define.h" />
     <ClInclude Include="..\Header\HW_Scene.h" />
     <ClInclude Include="CHW_MyBmp.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CSceneMgr.cpp" />
+    <ClCompile Include="..\Code\CHW_Stick.cpp" />
     <ClCompile Include="..\Code\HW_Scene.cpp" />
     <ClCompile Include="CHW_MyBmp.cpp" />
     <ClCompile Include="Client.cpp" />

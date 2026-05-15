@@ -15,7 +15,14 @@ public:
 
 public:
 	//virtual void MakeWorldMatrix();
+	void MoveToOrigin(); //원점 기준으로 이동시키기
+	void MakeWorldMatrix();
+	void AdjustWorldMatrix(); //WorldMat 적용
 protected:
 	_INFO m_tInfo;
+
+
+	vector<_vec3> m_vOriginPoints; //로컬
+	vector<_vec3> m_vWorldPoints;  //월드
 };
 
