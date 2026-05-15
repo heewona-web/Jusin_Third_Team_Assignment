@@ -13,4 +13,11 @@ public:
 
 		return pObj;
 	}
+
+	static CHW_Obj* CreateObj(float fX, float fY) {
+		CHW_Obj* pObj = new T(fX,fY);
+		pObj->Initialize();
+
+		return pObj;
+	}
 };

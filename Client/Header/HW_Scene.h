@@ -20,5 +20,10 @@ public:
 //private:
 //    CHW_Obj* m_pBall;
 //    CHW_Obj* m_pStick;
+
+private:
+    int			m_iFPS;
+    TCHAR		m_szFPS[32];
+    DWORD		m_dwTime;
 };
 

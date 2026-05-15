@@ -8,8 +8,10 @@
 
 #include "CHW_CBall.h"
 #include "CHW_Stick.h"
+#include "CHW_Brick.h"
 
-HW_Scene::HW_Scene() {
+HW_Scene::HW_Scene() : m_iFPS(0), m_dwTime(GetTickCount()) {
+    ZeroMemory(m_szFPS, sizeof(m_szFPS));
 }
 
 HW_Scene::~HW_Scene()
@@ -25,6 +27,14 @@ void HW_Scene::Initialize()
     CHW_ObjMgr::Get_Instance()->AddObject(OBJ_BALL, CHW_AbstractFactory<CHW_CBall>::CreateObj());
 
     CHW_ObjMgr::Get_Instance()->AddObject(OBJ_STICK, CHW_AbstractFactory<CHW_Stick>::CreateObj());
+
+
+    for (size_t i = 0; i < 16; ++i) {
+        for (size_t j = 0; j < 2; ++j) {
+            CHW_ObjMgr::Get_Instance()->AddObject(OBJ_BRICK, CHW_AbstractFactory<CHW_Brick>::CreateObj((i+1) * 50, (j+1) * 30));
+        }
+    }
+
     
 
 }
@@ -48,12 +58,25 @@ void HW_Scene::Render(HDC hDC)
 {
 
     CHW_ObjMgr::Get_Instance()->Render(hDC);
-    //Rectangle(hDC, 0, 0, 300, 300);
+
+    ++m_iFPS;
+
+    if (m_dwTime + 1000 < GetTickCount())
+    {
+        swprintf_s(m_szFPS, L"FPS : %d", m_iFPS);
+
+        SetWindowText(g_hWnd, m_szFPS);
+
+        m_iFPS = 0;
+        m_dwTime = GetTickCount();
+    }
+
+
+
 }
 
 void HW_Scene::Release()
 {
     CHW_ObjMgr::Get_Instance()->Release();
-    //Safe_Delete< CHW_Obj*>(m_pBall);
-    //Safe_Delete< CHW_Obj*>(m_pStick);
+
 }

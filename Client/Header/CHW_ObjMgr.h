@@ -2,7 +2,7 @@
 #include "CHW_Obj.h"
 
 
-enum OBJ_TYPE { OBJ_BALL, OBJ_WALL , OBJ_STICK, OBJ_END };
+enum OBJ_TYPE { OBJ_BALL, OBJ_BRICK , OBJ_STICK, OBJ_END };
 
 
 class CHW_ObjMgr

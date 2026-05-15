@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="..\Header\CHW_AbstractFactory.h" />
     <ClInclude Include="..\Header\CHW_BmpMgr.h" />
+    <ClInclude Include="..\Header\CHW_Brick.h" />
     <ClInclude Include="..\Header\CHW_CBall.h" />
     <ClInclude Include="..\Header\CBU_Actor.h" />
     <ClInclude Include="..\Header\CBU_CollisionUtil.h" />
@@ -176,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CHW_BmpMgr.cpp" />
+    <ClCompile Include="..\Code\CHW_Brick.cpp" />
     <ClCompile Include="..\Code\CHW_CBall.cpp" />
     <ClCompile Include="..\Code\CBU_Actor.cpp" />
     <ClCompile Include="..\Code\CBU_CollisionUtil.cpp" />
