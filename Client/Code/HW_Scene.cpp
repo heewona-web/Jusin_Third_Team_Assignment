@@ -1,9 +1,15 @@
 #include "HW_Scene.h"
+
+#include "CHW_Obj.h"
+#include "CHW_BmpMgr.h"
+#include "CHW_KeyMgr.h"
+#include "CHW_ObjMgr.h"
+#include "CHW_AbstractFactory.h"
+
 #include "CHW_CBall.h"
 #include "CHW_Stick.h"
 
-HW_Scene::HW_Scene() : m_pBall(nullptr), m_pStick(nullptr)
-{
+HW_Scene::HW_Scene() {
 }
 
 HW_Scene::~HW_Scene()
@@ -13,17 +19,12 @@ HW_Scene::~HW_Scene()
 
 void HW_Scene::Initialize()
 {
-    if (nullptr == m_pBall) {
-        m_pBall = new CHW_CBall;
-    }
-    m_pBall->Initialize();
 
-    if (nullptr == m_pStick) {
-        m_pStick = new CHW_Stick;
-    }
-    m_pStick->Initialize();
- 
     CHW_BmpMgr::Get_Instance()->Insert_Bmp(L"../Data/Back.bmp", L"Back");
+
+    CHW_ObjMgr::Get_Instance()->AddObject(OBJ_BALL, CHW_AbstractFactory<CHW_CBall>::CreateObj());
+
+    CHW_ObjMgr::Get_Instance()->AddObject(OBJ_STICK, CHW_AbstractFactory<CHW_Stick>::CreateObj());
     
 
 }
@@ -32,26 +33,27 @@ int HW_Scene::Update()
 {
 
     CHW_KeyMgr::Get_Instance()->Update();
-    m_pBall->Update();
-    m_pStick->Update();
+
+    CHW_ObjMgr::Get_Instance()->Update();
+
     return 0;
 }
 
 void HW_Scene::Late_Update()
 {
-    m_pBall->LateUpdate();
-    m_pStick->LateUpdate();
+    CHW_ObjMgr::Get_Instance()->LateUpdate();
 }
 
 void HW_Scene::Render(HDC hDC)
 {
-    m_pBall->Render(hDC);
-    m_pStick->Render(hDC);
+
+    CHW_ObjMgr::Get_Instance()->Render(hDC);
     //Rectangle(hDC, 0, 0, 300, 300);
 }
 
 void HW_Scene::Release()
 {
-    Safe_Delete< CHW_Obj*>(m_pBall);
-    Safe_Delete< CHW_Obj*>(m_pStick);
+    CHW_ObjMgr::Get_Instance()->Release();
+    //Safe_Delete< CHW_Obj*>(m_pBall);
+    //Safe_Delete< CHW_Obj*>(m_pStick);
 }

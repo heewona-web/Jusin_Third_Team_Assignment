@@ -88,6 +88,12 @@
     <Filter Include="00. MainApp\01. HW\Mgr\CKeyMgr">
       <UniqueIdentifier>{057f890f-3f65-4720-b9cc-46e3ffb4b6f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. MainApp\01. HW\Mgr\AbstractFactory">
+      <UniqueIdentifier>{7c80a31e-1040-4aaf-b960-fc5a6da2e4c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\01. HW\Mgr\CObjMgr">
+      <UniqueIdentifier>{7788ac87-8bcc-435f-b9ce-d395e25b64fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -156,6 +162,12 @@
     <ClInclude Include="CHW_KeyMgr.h">
       <Filter>00. MainApp\01. HW\Mgr\CKeyMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CHW_AbstractFactory.h">
+      <Filter>00. MainApp\01. HW\Mgr\AbstractFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHW_ObjMgr.h">
+      <Filter>00. MainApp\01. HW\Mgr\CObjMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -211,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="CHW_KeyMgr.cpp">
       <Filter>00. MainApp\01. HW\Mgr\CKeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHW_ObjMgr.cpp">
+      <Filter>00. MainApp\01. HW\Mgr\CObjMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

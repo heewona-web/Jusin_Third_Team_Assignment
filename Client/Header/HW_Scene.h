@@ -1,9 +1,6 @@
 #pragma once
 #include "CScene.h"
 
-#include "CHW_Obj.h"
-#include "CHW_BmpMgr.h"
-#include "CHW_KeyMgr.h"
 
 
 class HW_Scene :
@@ -20,8 +17,8 @@ public:
     void Release() override;
 
 
-private:
-    CHW_Obj* m_pBall;
-    CHW_Obj* m_pStick;
+//private:
+//    CHW_Obj* m_pBall;
+//    CHW_Obj* m_pStick;
 };
 
