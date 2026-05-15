@@ -20,5 +20,6 @@ public:
 
 private:
     CHW_Obj* m_pBall;
+    CHW_Obj* m_pStick;
 };
 

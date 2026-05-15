@@ -18,6 +18,7 @@ public:
 	void MoveToOrigin(); //원점 기준으로 이동시키기
 	void MakeWorldMatrix();
 	void AdjustWorldMatrix(); //WorldMat 적용
+	void RenderVertex(HDC hDC); //WorldMat 적용
 protected:
 	_INFO m_tInfo;
 

@@ -12,5 +12,11 @@ public:
     void LateUpdate() override;
     void Render(HDC hDC) override;
     void Release() override;
+
+public:
+    _vec3 m_vOriginScale;	// Å©±â
+
+
+    float m_fSpeed;
 };
 

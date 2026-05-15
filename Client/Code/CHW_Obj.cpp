@@ -39,3 +39,14 @@ void CHW_Obj::AdjustWorldMatrix()
 	}
 }
 
+void CHW_Obj::RenderVertex(HDC hDC)
+{
+	for (size_t i = 0; i < m_vWorldPoints.size(); ++i) {
+		MoveToEx(hDC, m_vWorldPoints[i].x, m_vWorldPoints[i].y, NULL);
+
+		int next = (i + 1) % m_vWorldPoints.size();
+
+		LineTo(hDC, m_vWorldPoints[next].x, m_vWorldPoints[next].y);
+	}
+}
+
