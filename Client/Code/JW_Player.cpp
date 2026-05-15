@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "JW_Player.h"
 
-JW_Player::JW_Player() : m_bJump(false), m_fJumpTime(0.f)
+JW_Player::JW_Player() : m_bJump(false), m_fJumpPower(0.f), m_fGravity(0.f)
 {
 
 }
@@ -16,11 +16,13 @@ void JW_Player::Initialize()
     m_tInfo.vPos = { 200.f,WINCY >> 1,0.f };
     m_tInfo.vLook = { 1.f,0.f,0.f };
     
-    m_fSpeed = 0.02f;
-    m_fJumpTime = 0.01f;
+    m_fSpeed = 0.f;
+    m_fJumpPower = -0.7f;
+    m_fGravity = 0.002f;
+    m_fMaxFallSpeed = 0.1f;
 
     m_fAngle = 0.f;
-    m_fRotateSpeed = 0.03f;
+    m_fRotateSpeed = 0.001f;
 
     m_fBodyLength = 15.f;
     m_fBeakLength = 20.f;
@@ -67,22 +69,32 @@ void JW_Player::Release()
 
 void JW_Player::Key_Input()
 {
-    if (GetAsyncKeyState(VK_SPACE)) {
-        m_fSpeed = 0.2f;
-        m_bJump = true;
+    if (GetAsyncKeyState(VK_SPACE) & 0x0001) {
+        m_fSpeed = m_fJumpPower;
     }
 }
 
 void JW_Player::Jump()
 {
-    if (!m_bJump) {
+    m_fSpeed += m_fGravity;
+
+    if (m_fSpeed > m_fMaxFallSpeed) {
+        m_fSpeed = m_fMaxFallSpeed;
+    }
+
+    m_tInfo.vPos.y += m_fSpeed;
+
+    if (m_tInfo.vPos.y > WINCY) {
+        m_tInfo.vPos.y = WINCY;
+        //게임 오버 처리 필요
+    }
+
+    if (m_fSpeed < 0.f) {
+        m_fAngle = D3DXToRadian(-45.f);
+    }
+    else {
         if (m_fAngle < D3DXToRadian(90.f)) {
             m_fAngle += m_fRotateSpeed;
-        }
-    }
-    if (m_bJump) {
-        if (m_fAngle > D3DXToRadian(-45.f)) {
-            m_fAngle -= m_fRotateSpeed;
         }
     }
 }

@@ -27,8 +27,6 @@ protected:
 	D3DXVECTOR3 vBodyVertex[5];
 	D3DXVECTOR3 vLocalBodyVertex[5];
 
-	float m_fJumpTime;
-
 	float m_fBodyLength;
 	float m_fBeakLength;
 	float m_fRotateSpeed;
@@ -38,4 +36,7 @@ protected:
 	float m_fMinAngle;
 
 	bool m_bJump;
+	float m_fJumpPower;
+	float m_fGravity;
+	float m_fMaxFallSpeed;
 };
