@@ -16,7 +16,7 @@ typedef struct tagInfo
 	_matrix		matWorld;
 
 
-}INFO;
+}_INFO;
 
 static _vec3		GetMouse()
 {

@@ -149,12 +149,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CHW_CBall.h" />
     <ClInclude Include="..\Header\CBU_Actor.h" />
     <ClInclude Include="..\Header\CBU_CollisionUtil.h" />
     <ClInclude Include="..\Header\CBU_MainGame.h" />
     <ClInclude Include="..\Header\CBU_Object.h" />
     <ClInclude Include="..\Header\CBU_Player.h" />
     <ClInclude Include="..\Header\CBU_RenderUtil.h" />
+    <ClInclude Include="..\Header\CHW_Obj.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CScene.h" />
     <ClInclude Include="..\Header\CSceneMgr.h" />
@@ -167,12 +169,14 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CHW_CBall.cpp" />
     <ClCompile Include="..\Code\CBU_Actor.cpp" />
     <ClCompile Include="..\Code\CBU_CollisionUtil.cpp" />
     <ClCompile Include="..\Code\CBU_MainGame.cpp" />
     <ClCompile Include="..\Code\CBU_Object.cpp" />
     <ClCompile Include="..\Code\CBU_Player.cpp" />
     <ClCompile Include="..\Code\CBU_RenderUtil.cpp" />
+    <ClCompile Include="..\Code\CHW_Obj.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CSceneMgr.cpp" />
