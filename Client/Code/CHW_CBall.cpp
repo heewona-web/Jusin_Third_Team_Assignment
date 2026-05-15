@@ -1,6 +1,6 @@
 #include "CHW_CBall.h"
 
-CHW_CBall::CHW_CBall() : m_fRadius(0.f), m_fSpeed(0.f)
+CHW_CBall::CHW_CBall() : m_fSpeed(0.f)
 {
 }
 
@@ -14,11 +14,24 @@ void CHW_CBall::Initialize()
 	m_tInfo.vPos = { 400.f, 300.f, 0.f };		// 월드 위치
 
 
-	m_vWorldCenter = { m_tInfo.vPos.x , m_tInfo.vPos.y, m_tInfo.vPos.z };
 
-	m_vOriginCenter = m_vWorldCenter;
 
-	m_fRadius = 50.f;
+	m_vOriginScale = { 30.f , 30.f, 0.f };
+
+	// 사각형
+	m_vWorldPoints.resize(4);
+	m_vWorldPoints[0] = { m_tInfo.vPos.x - m_vOriginScale.x, m_tInfo.vPos.y - m_vOriginScale.y, 0.f }; // 죄상단
+	m_vWorldPoints[1] = { m_tInfo.vPos.x + m_vOriginScale.x, m_tInfo.vPos.y - m_vOriginScale.y, 0.f }; // 우상단
+	m_vWorldPoints[2] = { m_tInfo.vPos.x + m_vOriginScale.x, m_tInfo.vPos.y + m_vOriginScale.y, 0.f }; // 우하단
+	m_vWorldPoints[3] = { m_tInfo.vPos.x - m_vOriginScale.x, m_tInfo.vPos.y + m_vOriginScale.y, 0.f }; // 좌하단
+
+	
+	m_vOriginPoints.reserve(m_vWorldPoints.size());
+	for (auto& v : m_vWorldPoints) {
+		m_vOriginPoints.push_back(v - m_tInfo.vPos); //Origin 은 (0,0)기준으로 크기만 반영되게끔 조작
+	}
+
+
 	m_fSpeed = 0.5f;
 	m_vVelocity = { m_fSpeed , m_fSpeed , 0.f }; //초기 속도
 	D3DXVec3Normalize(&m_tInfo.vDir, &m_vVelocity);
@@ -27,11 +40,9 @@ void CHW_CBall::Initialize()
 
 void CHW_CBall::Update()
 {
-	//원점으로 이동
-	m_vWorldCenter = m_vOriginCenter;
-	m_vWorldCenter -= m_vOriginCenter;
 
-	//MoveToOrigin(m_vWorldCenter, m_vOriginCenter);
+
+	MoveToOrigin();
 
 	//경계면 체크
 	CheckBoundary();
@@ -45,7 +56,8 @@ void CHW_CBall::Update()
 	MakeWorldMatrix();
 	
 	//행렬 반영
-	D3DXVec3TransformCoord(&m_vWorldCenter, &m_vWorldCenter, &m_tInfo.matWorld);
+	AdjustWorldMatrix();
+
 
 	
 }
@@ -58,17 +70,26 @@ void CHW_CBall::LateUpdate()
 
 void CHW_CBall::Render(HDC hDC)
 {
-	Ellipse(hDC, m_vWorldCenter.x - m_fRadius, m_vWorldCenter.y - m_fRadius, m_vWorldCenter.x + m_fRadius, m_vWorldCenter.y + m_fRadius);
+	for (size_t i = 0; i < m_vWorldPoints.size(); ++i) {
+		MoveToEx(hDC, m_vWorldPoints[i].x, m_vWorldPoints[i].y, NULL);
+
+		int next = (i + 1) % m_vWorldPoints.size();
+
+		LineTo(hDC, m_vWorldPoints[next].x, m_vWorldPoints[next].y);
+	}
 }
 
 void CHW_CBall::Release()
 {
 }
 
-void CHW_CBall::MoveToOrigin(_vec3 vWorld, _vec3 Origin) 
+void CHW_CBall::MoveToOrigin() 
 {
-	vWorld = Origin;
-	vWorld -= Origin;
+	//vOriginPoints와 vWorldPoints의 사이즈는 같을 것임. => Initilize()에서 그렇게 되게끔해줬음
+
+	for (size_t i = 0; i < m_vOriginPoints.size(); ++i) {
+		m_vWorldPoints[i] = m_vOriginPoints[i];
+	}
 }
 
 
@@ -113,11 +134,24 @@ void CHW_CBall::SetDirection(_vec3 normal)
 void CHW_CBall::MakeWorldMatrix()
 {
 	D3DXMATRIX		matScale, matRotZ, matTrans;
-	//D3DXMatrixScaling(&matScale, -1.f, 1.f, 1.f);
+
 	D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
-	D3DXMatrixIdentity(&matRotZ); // 일단 원이여서 회전 적용하지 않고.. 나중에  Rect로 테스트해서 회전 잘 적용되는 지 보자..?
+	D3DXMatrixIdentity(&matRotZ);
+	if (fabsf(m_vVelocity.x) > 1e-4f) {
+		const float fAngle = atanf(m_vVelocity.y / m_vVelocity.x);
+		D3DXMatrixRotationZ(&matRotZ, fAngle);
+
+	}
 	D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z);
 
 	m_tInfo.matWorld = matScale * matRotZ * matTrans;
+}
+
+void CHW_CBall::AdjustWorldMatrix()
+{
+
+	for (auto& v : m_vWorldPoints) {
+		D3DXVec3TransformCoord(&v, &v, &m_tInfo.matWorld);
+	}
 }
 
