@@ -16,9 +16,26 @@ public:
 	void Render(HDC hDC) override;
 	void Release() override;
 
+private:
+	void Key_Input();
+
+private:
+	void Jump();
+	void Body_Rotate();
+
 protected:
 	D3DXVECTOR3 vBodyVertex[5];
+	D3DXVECTOR3 vLocalBodyVertex[5];
+
+	float m_fJumpTime;
 
 	float m_fBodyLength;
 	float m_fBeakLength;
+	float m_fRotateSpeed;
+
+	float m_fAngle;
+	float m_fMaxAngle;
+	float m_fMinAngle;
+
+	bool m_bJump;
 };

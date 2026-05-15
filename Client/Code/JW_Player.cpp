@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "JW_Player.h"
 
-JW_Player::JW_Player()
+JW_Player::JW_Player() : m_bJump(false), m_fJumpTime(0.f)
 {
 
 }
@@ -15,7 +15,12 @@ void JW_Player::Initialize()
 {
     m_tInfo.vPos = { 200.f,WINCY >> 1,0.f };
     m_tInfo.vLook = { 1.f,0.f,0.f };
-    m_fSpeed = 2.f;
+    
+    m_fSpeed = 0.02f;
+    m_fJumpTime = 0.01f;
+
+    m_fAngle = 0.f;
+    m_fRotateSpeed = 0.03f;
 
     m_fBodyLength = 15.f;
     m_fBeakLength = 20.f;
@@ -30,19 +35,24 @@ void JW_Player::Initialize()
 
 int JW_Player::Update()
 {
+    Key_Input();
+    
     return 0;
 }
 
-void JW_Player::LateUpdate()
+void JW_Player::LateUpdate() 
 {
+    Jump();
+    Body_Rotate();
 }
 
 void JW_Player::Render(HDC hDC)
 {
     MoveToEx(hDC, vBodyVertex[0].x, vBodyVertex[0].y, NULL);
-    LineTo(hDC, vBodyVertex[1].x, vBodyVertex[1].y);
-    LineTo(hDC, vBodyVertex[2].x, vBodyVertex[2].y);
-    LineTo(hDC, vBodyVertex[3].x, vBodyVertex[3].y);
+    
+    for (int i = 0; i < 4; i++) {
+        LineTo(hDC, vBodyVertex[i].x, vBodyVertex[i].y);
+    }
     LineTo(hDC, vBodyVertex[0].x, vBodyVertex[0].y);
 
     MoveToEx(hDC, vBodyVertex[1].x, vBodyVertex[1].y, NULL);
@@ -52,4 +62,53 @@ void JW_Player::Render(HDC hDC)
 
 void JW_Player::Release()
 {
+
+}
+
+void JW_Player::Key_Input()
+{
+    if (GetAsyncKeyState(VK_SPACE)) {
+        m_fSpeed = 0.2f;
+        m_bJump = true;
+    }
+}
+
+void JW_Player::Jump()
+{
+    if (!m_bJump) {
+        if (m_fAngle < D3DXToRadian(90.f)) {
+            m_fAngle += m_fRotateSpeed;
+        }
+    }
+    if (m_bJump) {
+        if (m_fAngle > D3DXToRadian(-45.f)) {
+            m_fAngle -= m_fRotateSpeed;
+        }
+    }
+}
+
+void JW_Player::Body_Rotate()
+{
+    D3DXMATRIX matRotZ, matTrans;
+
+    D3DXMatrixRotationZ(&matRotZ, m_fAngle);
+    D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z);
+
+    m_tInfo.matWorld = matRotZ * matTrans;
+
+    /*for (int i = 0; i < 5; ++i) {
+        vLocalBodyVertex[i] = { vBodyVertex[i].x - m_tInfo.vPos.x,vBodyVertex[i].y - m_tInfo.vPos.y,0.f };
+    }*/
+    vLocalBodyVertex[0] = { -m_fBodyLength,-m_fBodyLength,0.f };
+    vLocalBodyVertex[1] = { m_fBodyLength,-m_fBodyLength,0.f };
+    vLocalBodyVertex[2] = { m_fBodyLength,m_fBodyLength,0.f };
+    vLocalBodyVertex[3] = { -m_fBodyLength,m_fBodyLength,0.f };
+    vLocalBodyVertex[4] = { m_fBeakLength,0.f,0.f };
+
+    for (int i = 0; i < 5; ++i) {
+        D3DXVec3TransformCoord(&vBodyVertex[i], &vLocalBodyVertex[i], &m_tInfo.matWorld);
+    }
+
+    D3DXVECTOR3 vLookLocal = { 1.f, 0.f, 0.f };
+    D3DXVec3TransformNormal(&m_tInfo.vLook, &vLookLocal, &m_tInfo.matWorld);
 }
