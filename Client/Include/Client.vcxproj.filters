@@ -85,6 +85,9 @@
     <Filter Include="00. MainApp\01. HW\Object\Stick">
       <UniqueIdentifier>{b086b40a-2466-4c12-b523-68fc42421c6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. MainApp\01. HW\Mgr\CKeyMgr">
+      <UniqueIdentifier>{057f890f-3f65-4720-b9cc-46e3ffb4b6f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -150,6 +153,9 @@
     <ClInclude Include="..\Header\CHW_Stick.h">
       <Filter>00. MainApp\01. HW\Object\Stick</Filter>
     </ClInclude>
+    <ClInclude Include="CHW_KeyMgr.h">
+      <Filter>00. MainApp\01. HW\Mgr\CKeyMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -202,6 +208,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CHW_Stick.cpp">
       <Filter>00. MainApp\01. HW\Object\Stick</Filter>
+    </ClCompile>
+    <ClCompile Include="CHW_KeyMgr.cpp">
+      <Filter>00. MainApp\01. HW\Mgr\CKeyMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

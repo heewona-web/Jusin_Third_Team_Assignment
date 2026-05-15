@@ -3,6 +3,8 @@
 
 #include "CHW_Obj.h"
 #include "CHW_BmpMgr.h"
+#include "CHW_KeyMgr.h"
+
 
 class HW_Scene :
     public CScene

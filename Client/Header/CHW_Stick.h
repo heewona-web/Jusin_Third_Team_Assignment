@@ -14,6 +14,8 @@ public:
     void Release() override;
 
 public:
+    void KeyInput();
+public:
     _vec3 m_vOriginScale;	// Å©±â
 
 

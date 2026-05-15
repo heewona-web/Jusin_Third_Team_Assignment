@@ -1,4 +1,5 @@
 #include "CHW_Stick.h"
+#include "CHW_KeyMgr.h"
 
 CHW_Stick::CHW_Stick()
 {
@@ -41,6 +42,7 @@ void CHW_Stick::Update()
 {
 	MoveToOrigin();
 
+	KeyInput();
 	//행렬 적용
 	MakeWorldMatrix();
 
@@ -49,6 +51,17 @@ void CHW_Stick::Update()
 
 }
 
+void CHW_Stick::KeyInput()
+{
+	if (CHW_KeyMgr::Get_Instance()->KeyPressing(VK_LEFT))
+		m_tInfo.vPos.x -= m_fSpeed;
+	if (CHW_KeyMgr::Get_Instance()->KeyPressing(VK_RIGHT))
+		m_tInfo.vPos.x += m_fSpeed;
+	if (CHW_KeyMgr::Get_Instance()->KeyPressing(VK_UP))
+		m_tInfo.vPos.y += m_fSpeed;
+	if (CHW_KeyMgr::Get_Instance()->KeyPressing(VK_DOWN))
+		m_tInfo.vPos.y -= m_fSpeed;
+}
 void CHW_Stick::LateUpdate()
 {
 }
@@ -61,3 +74,5 @@ void CHW_Stick::Render(HDC hDC)
 void CHW_Stick::Release()
 {
 }
+
+

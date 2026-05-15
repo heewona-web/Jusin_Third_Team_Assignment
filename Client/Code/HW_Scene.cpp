@@ -24,11 +24,14 @@ void HW_Scene::Initialize()
     m_pStick->Initialize();
  
     CHW_BmpMgr::Get_Instance()->Insert_Bmp(L"../Data/Back.bmp", L"Back");
+    
 
 }
 
 int HW_Scene::Update()
 {
+
+    CHW_KeyMgr::Get_Instance()->Update();
     m_pBall->Update();
     m_pStick->Update();
     return 0;
