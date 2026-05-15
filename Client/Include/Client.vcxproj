@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>../Bin\Debug\</OutDir>
+    <OutDir>../Bin/Debug</OutDir>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -156,7 +156,10 @@
     <ClInclude Include="..\Header\CBU_Player.h" />
     <ClInclude Include="..\Header\CBU_RenderUtil.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
+    <ClInclude Include="..\Header\CScene.h" />
+    <ClInclude Include="..\Header\CSceneMgr.h" />
     <ClInclude Include="..\Header\Define.h" />
+    <ClInclude Include="..\Header\HW_Scene.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -171,6 +174,9 @@
     <ClCompile Include="..\Code\CBU_Player.cpp" />
     <ClCompile Include="..\Code\CBU_RenderUtil.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
+    <ClCompile Include="..\Code\CScene.cpp" />
+    <ClCompile Include="..\Code\CSceneMgr.cpp" />
+    <ClCompile Include="..\Code\HW_Scene.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
