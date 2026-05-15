@@ -13,6 +13,8 @@ public:
 	virtual void Render(HDC hDC) PURE;
 	virtual void Release() PURE;
 
+public:
+	//virtual void MakeWorldMatrix();
 protected:
 	_INFO m_tInfo;
 };
