@@ -2,6 +2,7 @@
 #pragma once
 #include "Define.h"
 #include "HW_Scene.h"
+#include "JW_Scene.h"
 //#include "BU_Scene.h"
 //#include "TG_Scene.h"
 //#include "JW_Scene.h"

@@ -39,7 +39,7 @@ void CSceneMgr::SetScene(SCENEID eID)
 			break;
 
 		case JW_SCENE:
-			//m_pScene = new JW_Scene;
+			m_pScene = new JW_Scene;
 			break;
 		}
 

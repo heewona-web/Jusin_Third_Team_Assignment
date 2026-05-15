@@ -16,6 +16,9 @@ HRESULT CMainApp::Ready_MainApp()
 	if (FAILED(CGraphicDev::GetInstance()->Ready_GraphicDev(g_hWnd, MODE_WIN, WINCX, WINCY, &m_pDeviceClass)))
 		return E_FAIL;
 
+	m_hDC = GetDC(g_hWnd);
+	CSceneMgr::Get_Instance()->SetScene(JW_SCENE);
+
 	//return E_FAIL;
 
 	return S_OK;
@@ -23,19 +26,23 @@ HRESULT CMainApp::Ready_MainApp()
 
 int CMainApp::Update_MainApp(const _float& fTimeDelta)
 {
+	CSceneMgr::Get_Instance()->Update();
+
 	return 0;
 }
 
 void CMainApp::LateUpdate_MainApp(const _float& fTimeDelta)
 {
+	CSceneMgr::Get_Instance()->Late_Update();
 }
 
 void CMainApp::Render_MainApp()
 {
-	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
+	//m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
 
+	CSceneMgr::Get_Instance()->Render(m_hDC);
 
-	m_pDeviceClass->Render_End();
+	//m_pDeviceClass->Render_End();
 }
 
 CMainApp* CMainApp::Create()

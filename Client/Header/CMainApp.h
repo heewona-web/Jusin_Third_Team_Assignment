@@ -24,5 +24,6 @@ public:
 
 private:
 	virtual void	 Free();		// ¼Ò¸ê ÇÔ¼ö
+	HDC m_hDC;
 };
 
