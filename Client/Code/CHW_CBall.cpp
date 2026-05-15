@@ -20,7 +20,7 @@ void CHW_CBall::Initialize()
 
 	m_fRadius = 50.f;
 	m_fSpeed = 0.5f;
-	m_vVelocity = { m_fSpeed , -m_fSpeed , 0.f }; //초기 속도
+	m_vVelocity = { m_fSpeed , m_fSpeed , 0.f }; //초기 속도
 	D3DXVec3Normalize(&m_tInfo.vDir, &m_vVelocity);
 	
 }
@@ -32,8 +32,6 @@ void CHW_CBall::Update()
 	m_vWorldCenter -= m_vOriginCenter;
 
 	//MoveToOrigin(m_vWorldCenter, m_vOriginCenter);
-
-	//SetDir();
 
 	//경계면 체크
 	CheckBoundary();
@@ -109,56 +107,6 @@ void CHW_CBall::SetDirection(_vec3 normal)
 
 	D3DXVec3Normalize(&m_tInfo.vDir, &vNewDir);
 }
-
-void CHW_CBall::SetDir()
-{
-	// 경계면에 닿으면 반사각으로 Dir 적용
-	//float fLeft = m_tInfo.vPos.x - m_fRadius;
-	//float fRight = m_tInfo.vPos.x + m_fRadius;
-	//float fTop = m_tInfo.vPos.y - m_fRadius;
-	//float fBottom = m_tInfo.vPos.y + m_fRadius;
-
-	//임시 test
-	
-	if (m_tInfo.vPos.y >= WINCY) {
-		_vec3 n = { 0, -1, 0 };
-		float fDot = D3DXVec3Dot(&m_vVelocity, &n);
-		_vec3 v = m_vVelocity - 2 * fDot * n;
-		
-		D3DXVec3Normalize(&m_tInfo.vDir, &v);
-		m_vVelocity = m_tInfo.vDir * m_fSpeed;
-	}
-
-	if (m_tInfo.vPos.y <= 0) {
-		_vec3 n = { 0, 1, 0 };
-		float fDot = D3DXVec3Dot(&m_vVelocity, &n);
-		_vec3 v = m_vVelocity - 2 * fDot * n;
-
-		D3DXVec3Normalize(&m_tInfo.vDir, &v);
-		m_vVelocity = m_tInfo.vDir * m_fSpeed;
-	}
-	
-
-	if (m_tInfo.vPos.x <= 0) {
-		_vec3 n = { -1, 0, 0 };
-		float fDot = D3DXVec3Dot(&m_vVelocity, &n);
-		_vec3 v = m_vVelocity - 2 * fDot * n;
-
-		D3DXVec3Normalize(&m_tInfo.vDir, &v);
-		m_vVelocity = m_tInfo.vDir * m_fSpeed;
-	}
-	if (m_tInfo.vPos.x >= WINCX) {
-		_vec3 n = { 1, 0, 0 };
-		float fDot = D3DXVec3Dot(&m_vVelocity, &n);
-		_vec3 v = m_vVelocity - 2 * fDot * n;
-
-		D3DXVec3Normalize(&m_tInfo.vDir, &v);
-		m_vVelocity = m_tInfo.vDir * m_fSpeed;
-	}
-
-
-}
-
 
 
 

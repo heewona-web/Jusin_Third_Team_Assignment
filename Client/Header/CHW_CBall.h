@@ -15,7 +15,6 @@ public:
 public:
 	void MoveToOrigin(_vec3 vWorld, _vec3 Origin);
 	void MakeWorldMatrix();
-	void SetDir();
 
 	void CheckBoundary();
 	void SetDirection(_vec3 normal );
