@@ -2,6 +2,7 @@
 #include "CMainApp.h"
 
 #include "CSceneMgr.h"
+#include "CHW_BmpMgr.h"
 
 CMainApp::CMainApp()
 {
@@ -34,13 +35,19 @@ void CMainApp::LateUpdate_MainApp(const _float& fTimeDelta)
 
 void CMainApp::Render_MainApp()
 {
-	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
+	//m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
+
 
 	HDC m_hDC = GetDC(g_hWnd);
-	CSceneMgr::Get_Instance()->Render(m_hDC);
+
+	HDC m_BackDC = CHW_BmpMgr::Get_Instance()->Find_Image(L"Back");
+	Rectangle(m_BackDC, 0, 0, WINCX, WINCY);
+
+	CSceneMgr::Get_Instance()->Render(m_BackDC);
+	BitBlt(m_hDC, 0, 0, WINCX, WINCY, m_BackDC, 0, 0, SRCCOPY);
 
 
-	m_pDeviceClass->Render_End();
+	//m_pDeviceClass->Render_End();
 }
 
 CMainApp* CMainApp::Create()

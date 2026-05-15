@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CHW_BmpMgr.h" />
     <ClInclude Include="..\Header\CHW_CBall.h" />
     <ClInclude Include="..\Header\CBU_Actor.h" />
     <ClInclude Include="..\Header\CBU_CollisionUtil.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="..\Header\CSceneMgr.h" />
     <ClInclude Include="..\Header\Define.h" />
     <ClInclude Include="..\Header\HW_Scene.h" />
+    <ClInclude Include="CHW_MyBmp.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -169,6 +171,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CHW_BmpMgr.cpp" />
     <ClCompile Include="..\Code\CHW_CBall.cpp" />
     <ClCompile Include="..\Code\CBU_Actor.cpp" />
     <ClCompile Include="..\Code\CBU_CollisionUtil.cpp" />
@@ -181,6 +184,7 @@
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CSceneMgr.cpp" />
     <ClCompile Include="..\Code\HW_Scene.cpp" />
+    <ClCompile Include="CHW_MyBmp.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

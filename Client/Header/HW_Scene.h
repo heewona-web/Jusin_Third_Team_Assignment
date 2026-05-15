@@ -2,6 +2,7 @@
 #include "CScene.h"
 
 #include "CHW_Obj.h"
+#include "CHW_BmpMgr.h"
 
 class HW_Scene :
     public CScene

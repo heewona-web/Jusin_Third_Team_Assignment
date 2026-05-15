@@ -16,6 +16,8 @@ void HW_Scene::Initialize()
         m_pBall = new CHW_CBall;
     }
     m_pBall->Initialize();
+ 
+    CHW_BmpMgr::Get_Instance()->Insert_Bmp(L"../Data/Back.bmp", L"Back");
 
 }
 
