@@ -18,7 +18,8 @@ public:
 public:
     _vec3 m_vOriginScale;	// 크기
 
-
+    float m_fCurAngle; //라이안 값
+    const float m_fRotAngle = 0.3f;
     float m_fSpeed;
 };
 

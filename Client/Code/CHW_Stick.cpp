@@ -1,7 +1,7 @@
 #include "CHW_Stick.h"
 #include "CHW_KeyMgr.h"
 
-CHW_Stick::CHW_Stick()
+CHW_Stick::CHW_Stick() : m_fCurAngle(0.f), m_fSpeed(0.f)
 {
 }
 
@@ -12,7 +12,7 @@ CHW_Stick::~CHW_Stick()
 
 void CHW_Stick::Initialize()
 {
-	m_tInfo.vPos = { 200.f, 100.f, 0.f };		// 월드 위치
+	m_tInfo.vPos = {static_cast<float>(WINCX >> 1), static_cast<float>(WINCY) - 30.f, 0.f};		// 월드 위치
 
 
 
@@ -44,6 +44,9 @@ void CHW_Stick::Update()
 
 	KeyInput();
 	//행렬 적용
+	D3DXVECTOR3 vDir = { cosf(m_fCurAngle) ,sinf(m_fCurAngle), 0.f };
+	D3DXVec3Normalize(&m_tInfo.vDir, &vDir);
+
 	MakeWorldMatrix();
 
 	//행렬 반영
@@ -57,10 +60,19 @@ void CHW_Stick::KeyInput()
 		m_tInfo.vPos.x -= m_fSpeed;
 	if (CHW_KeyMgr::Get_Instance()->KeyPressing(VK_RIGHT))
 		m_tInfo.vPos.x += m_fSpeed;
-	if (CHW_KeyMgr::Get_Instance()->KeyPressing(VK_UP))
-		m_tInfo.vPos.y += m_fSpeed;
-	if (CHW_KeyMgr::Get_Instance()->KeyPressing(VK_DOWN))
-		m_tInfo.vPos.y -= m_fSpeed;
+	if (CHW_KeyMgr::Get_Instance()->KeyDown(VK_UP))
+		m_fCurAngle += m_fRotAngle;
+	if (CHW_KeyMgr::Get_Instance()->KeyDown(VK_DOWN))
+		m_fCurAngle -= m_fRotAngle;
+
+
+	//x좌표 clamping
+	if (m_tInfo.vPos.x - m_vOriginScale.x < 0) {
+		m_tInfo.vPos.x = m_vOriginScale.x;
+	}
+	if (m_tInfo.vPos.x + m_vOriginScale.x > WINCX) {
+		m_tInfo.vPos.x = static_cast<float>(WINCX) - m_vOriginScale.x;
+	}
 }
 void CHW_Stick::LateUpdate()
 {
