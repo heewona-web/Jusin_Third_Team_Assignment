@@ -35,11 +35,10 @@ void JW_Player::Initialize()
     vBodyVertex[4] = { m_tInfo.vPos.x + m_fBeakLength, m_tInfo.vPos.y, 0.f };
 }
 
-int JW_Player::Update()
+void JW_Player::Update()
 {
     Key_Input();
     
-    return 0;
 }
 
 void JW_Player::LateUpdate() 

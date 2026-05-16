@@ -10,10 +10,13 @@ public:
 
 public:
 	virtual void Initialize() PURE;
-	virtual int Update() PURE;
+	virtual void Update() PURE;
 	virtual void LateUpdate() PURE;
 	virtual void Render(HDC hDC) PURE;
 	virtual void Release() PURE;
+
+public:
+	void Set_PosX(float _x) { m_tInfo.vPos.x = _x; }
 
 protected:
 	tagInfo m_tInfo;

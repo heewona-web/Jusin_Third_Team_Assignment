@@ -40,6 +40,7 @@ void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
 
+	//Rectangle(m_hDC, 0, 0, WINCX, WINCY);
 	CSceneMgr::Get_Instance()->Render(m_hDC);
 
 	m_pDeviceClass->Render_End();
