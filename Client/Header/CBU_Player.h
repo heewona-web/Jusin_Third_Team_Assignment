@@ -4,8 +4,8 @@
 class CBU_Player : public CBU_Actor
 {
 public:
-	explicit CBU_Player();
-	virtual ~CBU_Player();
+	explicit CBU_Player() {}
+	~CBU_Player() override {}
 
 
 };

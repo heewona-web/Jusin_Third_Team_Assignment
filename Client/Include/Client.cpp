@@ -58,6 +58,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (nullptr == pMainApp)
         return FALSE;
 
+    ULONGLONG ullTime = GetTickCount64();
 
     // 기본 메시지 루프입니다:
     while (true)
@@ -75,11 +76,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
-            pMainApp->Update_MainApp(0.f);
-            pMainApp->LateUpdate_MainApp(0.f);
-            pMainApp->Render_MainApp();
+            if (ullTime + 10 < GetTickCount64())
+            {
+                pMainApp->Update_MainApp(0.f);
+                pMainApp->LateUpdate_MainApp(0.f);
+                pMainApp->Render_MainApp();
+                ullTime = GetTickCount64();
+            }
         }
     }
+
+    Engine::Safe_Release(pMainApp);
 
     return (int) msg.wParam;
 }

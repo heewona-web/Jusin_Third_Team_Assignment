@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CSceneMgr.h"
+#include "CBU_Scene.h"
 
 CSceneMgr* CSceneMgr::m_pInstance = nullptr;
 
@@ -31,7 +32,7 @@ void CSceneMgr::SetScene(SCENEID eID)
 			break;
 
 		case BU_SCENE:
-			//m_pScene = new BU_Scene;
+			m_pScene = new CBU_Scene;
 			break;
 
 		case TG_SCENE:
@@ -68,5 +69,6 @@ void CSceneMgr::Render(HDC hDC)
 
 void CSceneMgr::Release()
 {
+	m_pScene->Release();
 	Safe_Delete<CScene*>(m_pScene);
 }

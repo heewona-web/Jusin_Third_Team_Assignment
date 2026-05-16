@@ -43,12 +43,6 @@
     <Filter Include="00. MainApp\04. BU\01.Object\01.Actor\01.Player">
       <UniqueIdentifier>{3f9d757f-7ea7-4b4e-8826-b98337113f25}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00. MainApp\04. BU\01.Object\01.Actor\02.Tank">
-      <UniqueIdentifier>{d2579c1e-02e0-49e3-80e8-c886aa70d0e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00. MainApp\04. BU\01.Object\02.Enemy">
-      <UniqueIdentifier>{9ff90593-174c-4c6e-9570-e0f4b8e18f76}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00. MainApp\04. BU\02.Util\01.RenderUtil">
       <UniqueIdentifier>{c068845a-e78e-4cca-953f-dd306b1b6d81}</UniqueIdentifier>
     </Filter>
@@ -81,6 +75,24 @@
     </Filter>
     <Filter Include="00. MainApp\01. HW\Mgr\CBmpMgr\CMyBmp">
       <UniqueIdentifier>{6c1e2946-7a33-4479-8af7-2eed89bc0a34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\04. BU\03.Manager">
+      <UniqueIdentifier>{1f00505f-4682-4ca8-bc6c-3dab9eb2fce3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\04. BU\03.Manager\01.KeyManager">
+      <UniqueIdentifier>{3549f0ca-55b5-43e0-bec0-f82384b387a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\04. BU\03.Manager\02.ObjectManager">
+      <UniqueIdentifier>{21dca05e-942a-48f8-8d95-9b0effd400ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\04. BU\01.Object\02.Ingredient">
+      <UniqueIdentifier>{d2579c1e-02e0-49e3-80e8-c886aa70d0e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\04. BU\01.Object\03.Arm">
+      <UniqueIdentifier>{9ff90593-174c-4c6e-9570-e0f4b8e18f76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\04. BU\02.Util\03.VectorUtil">
+      <UniqueIdentifier>{a4f6bc67-01f0-458d-bfb2-d70c8a6a80b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +156,24 @@
     <ClInclude Include="CHW_MyBmp.h">
       <Filter>00. MainApp\01. HW\Mgr\CBmpMgr\CMyBmp</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CBU_Scene.h">
+      <Filter>01. Mgr\SceneMgr\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBU_KeyManager.h">
+      <Filter>00. MainApp\04. BU\03.Manager\01.KeyManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BU_Define.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBU_ObjectManager.h">
+      <Filter>00. MainApp\04. BU\03.Manager\02.ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBU_VectorUtil.h">
+      <Filter>00. MainApp\04. BU\02.Util\03.VectorUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBU_Ingredient.h">
+      <Filter>00. MainApp\04. BU\01.Object\02.Ingredient</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -193,6 +223,22 @@
     </ClCompile>
     <ClCompile Include="CHW_MyBmp.cpp">
       <Filter>00. MainApp\01. HW\Mgr\CBmpMgr\CMyBmp</Filter>
+      <Filter>01. Mgr\SceneMgr\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBU_Scene.cpp">
+      <Filter>01. Mgr\SceneMgr\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBU_KeyManager.cpp">
+      <Filter>00. MainApp\04. BU\03.Manager\01.KeyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBU_ObjectManager.cpp">
+      <Filter>00. MainApp\04. BU\03.Manager\02.ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBU_VectorUtil.cpp">
+      <Filter>00. MainApp\04. BU\02.Util\03.VectorUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBU_Ingredient.cpp">
+      <Filter>00. MainApp\04. BU\01.Object\02.Ingredient</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

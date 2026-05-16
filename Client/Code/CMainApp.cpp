@@ -66,4 +66,5 @@ CMainApp* CMainApp::Create()
 void CMainApp::Free()
 {
 	m_pDeviceClass->DestroyInstance();
+	CSceneMgr::Destroy_Instance();
 }
