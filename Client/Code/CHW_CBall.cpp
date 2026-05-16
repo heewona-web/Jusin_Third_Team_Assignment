@@ -58,6 +58,10 @@ void CHW_CBall::Initialize()
 int CHW_CBall::Update()
 {
 
+	if (m_tInfo.vPos.x + m_fRadius >= WINCX) {
+		m_tInfo.vPos.y += 1.f;
+	}
+
 
 	MoveToOrigin();
 
@@ -119,25 +123,31 @@ void CHW_CBall::CheckBoundary()
 	if (m_tInfo.vPos.x - m_fRadius > 0 && m_tInfo.vPos.x + m_fRadius < WINCX && m_tInfo.vPos.y - m_fRadius > 0 && m_tInfo.vPos.y + m_fRadius < WINCY)
 		return;
 
-	_vec3 n = { 0,0,0 };
 
+	_vec3 n = { 0,0,0 };
 
 
 	if (m_tInfo.vPos.x - m_fRadius <= 0) {
 		n = { -1, 0, 0 };
+		m_tInfo.vPos.x = m_fRadius;
+		
 	}
 	if (m_tInfo.vPos.x + m_fRadius >= WINCX) {
 		n = { 1, 0, 0 };
+		m_tInfo.vPos.x = WINCX - m_fRadius;
 	}
 	if (m_tInfo.vPos.y - m_fRadius <= 0) {
 		n = { 0, 1, 0 };
+		m_tInfo.vPos.y = m_fRadius;
 	}
 	if (m_tInfo.vPos.y + m_fRadius >= WINCY) {
 		n = { 0, -1, 0 };
+		m_tInfo.vPos.y =WINCY - m_fRadius;
 	}
 
 
-	//밀어내기 적용해야할듯
+	
+
 	SetDirection_UseNormal(n);
 
 
@@ -149,6 +159,7 @@ void CHW_CBall::SetDirection_UseNormal(_vec3 normal)
 	_vec3 vNewDir = m_vVelocity - 2 * fDot * normal;
 
 	D3DXVec3Normalize(&m_tInfo.vDir, &vNewDir);
+
 }
 
 void CHW_CBall::SetPosion_UseMTV(_vec3 normal, float value)
