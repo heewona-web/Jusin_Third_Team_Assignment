@@ -18,7 +18,9 @@ HRESULT CMainApp::Ready_MainApp()
 		return E_FAIL;
 
 	//return E_FAIL;
-	CSceneMgr::Get_Instance()->SetScene(HW_SCENE);
+	//CSceneMgr::Get_Instance()->SetScene(HW_SCENE);
+	CSceneMgr::Get_Instance()->SetScene(BU_SCENE);
+	CHW_BmpMgr::Get_Instance()->Insert_Bmp(L"../Data/Back.bmp", L"Back");
 	return S_OK;
 }
 
@@ -67,4 +69,5 @@ void CMainApp::Free()
 {
 	m_pDeviceClass->DestroyInstance();
 	CSceneMgr::Destroy_Instance();
+	CHW_BmpMgr::Destroy_Instance();
 }

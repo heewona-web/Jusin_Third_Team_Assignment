@@ -221,10 +221,6 @@
     <ClCompile Include="..\Code\CHW_BmpMgr.cpp">
       <Filter>00. MainApp\01. HW\Mgr\CBmpMgr</Filter>
     </ClCompile>
-    <ClCompile Include="CHW_MyBmp.cpp">
-      <Filter>00. MainApp\01. HW\Mgr\CBmpMgr\CMyBmp</Filter>
-      <Filter>01. Mgr\SceneMgr\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CBU_Scene.cpp">
       <Filter>01. Mgr\SceneMgr\Scene</Filter>
     </ClCompile>
@@ -239,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CBU_Ingredient.cpp">
       <Filter>00. MainApp\04. BU\01.Object\02.Ingredient</Filter>
+    </ClCompile>
+    <ClCompile Include="CHW_MyBmp.cpp">
+      <Filter>00. MainApp\01. HW\Mgr\CBmpMgr\CMyBmp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
