@@ -97,6 +97,9 @@
     <Filter Include="00. MainApp\01. HW\Object\Brick">
       <UniqueIdentifier>{13492054-b5c1-416f-8a16-e752f7f5e714}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. MainApp\01. HW\Mgr\CCollisionMgr">
+      <UniqueIdentifier>{c876fe91-4c17-4524-a6a6-37296dc8b2ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -174,6 +177,9 @@
     <ClInclude Include="..\Header\CHW_Brick.h">
       <Filter>00. MainApp\01. HW\Object\Brick</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CHW_CollisionMgr.h">
+      <Filter>00. MainApp\01. HW\Mgr\CCollisionMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -235,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CHW_Brick.cpp">
       <Filter>00. MainApp\01. HW\Object\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHW_CollisionMgr.cpp">
+      <Filter>00. MainApp\01. HW\Mgr\CCollisionMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

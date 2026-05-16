@@ -54,11 +54,20 @@ void CHW_ObjMgr::Render(HDC hDC)
 }
 void CHW_ObjMgr::Release()
 {
-	//for (size_t i = 0; i < OBJ_END; ++i) {
-	//	for (size_t j = 0; j < m_ObjList[i].size(); ++j) {
+	for (size_t i = 0; i < OBJ_END; ++i) {
+		for (auto iter = m_ObjList[i].begin(); iter != m_ObjList[i].end();) {
 
-	//	}
-	//	m_ObjList[i].clear();
-	//}
+			if (*iter != nullptr) {
+				delete* iter;
+				iter = m_ObjList[i].erase(iter);
+
+			}
+			else {
+				++iter;
+			}
+
+		}
+		m_ObjList[i].clear();
+	}
 
 }

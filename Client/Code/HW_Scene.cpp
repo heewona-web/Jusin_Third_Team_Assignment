@@ -1,11 +1,11 @@
 #include "HW_Scene.h"
 
-#include "CHW_Obj.h"
 #include "CHW_BmpMgr.h"
 #include "CHW_KeyMgr.h"
 #include "CHW_ObjMgr.h"
 #include "CHW_AbstractFactory.h"
 
+#include "CHW_Obj.h"
 #include "CHW_CBall.h"
 #include "CHW_Stick.h"
 #include "CHW_Brick.h"
@@ -77,6 +77,9 @@ void HW_Scene::Render(HDC hDC)
 
 void HW_Scene::Release()
 {
-    CHW_ObjMgr::Get_Instance()->Release();
+
+    CHW_BmpMgr::Destroy_Instance();
+    CHW_KeyMgr::Destroy_Instance();
+    CHW_ObjMgr::Destroy_Instance();
 
 }
