@@ -4,6 +4,7 @@
 #include "JW_Wall.h"
 #include "JW_AbstractFactory.h"
 #include "JW_ObjMgr.h"
+#include <CSceneMgr.h>
 
 JW_Scene::JW_Scene():m_pPlayer(nullptr)
 {
@@ -27,6 +28,8 @@ void JW_Scene::Initialize()
 	for (int i = 0; i < 3; ++i) {
 		JW_ObjMgr::Get_Instance()->AddObj(OBJ_WALL, JW_AbstractFactory<JW_Wall>::Create_Obj(WINCX + (i * 300.f)));
 	}
+
+	CHW_BmpMgr::Get_Instance()->Insert_Bmp(L"../Data/Back.bmp", L"Back");
 }
 
 int JW_Scene::Update()

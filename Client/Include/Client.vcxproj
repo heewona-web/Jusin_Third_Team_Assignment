@@ -163,6 +163,13 @@
     <ClInclude Include="..\Header\CSceneMgr.h" />
     <ClInclude Include="..\Header\Define.h" />
     <ClInclude Include="..\Header\HW_Scene.h" />
+    <ClInclude Include="..\Header\JW_AbstractFactory.h" />
+    <ClInclude Include="..\Header\JW_Define.h" />
+    <ClInclude Include="..\Header\JW_Obj.h" />
+    <ClInclude Include="..\Header\JW_ObjMgr.h" />
+    <ClInclude Include="..\Header\JW_Player.h" />
+    <ClInclude Include="..\Header\JW_Scene.h" />
+    <ClInclude Include="..\Header\JW_Wall.h" />
     <ClInclude Include="CHW_MyBmp.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
@@ -184,6 +191,11 @@
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CSceneMgr.cpp" />
     <ClCompile Include="..\Code\HW_Scene.cpp" />
+    <ClCompile Include="..\Code\JW_Obj.cpp" />
+    <ClCompile Include="..\Code\JW_ObjMgr.cpp" />
+    <ClCompile Include="..\Code\JW_Player.cpp" />
+    <ClCompile Include="..\Code\JW_Scene.cpp" />
+    <ClCompile Include="..\Code\JW_Wall.cpp" />
     <ClCompile Include="CHW_MyBmp.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="pch.cpp">

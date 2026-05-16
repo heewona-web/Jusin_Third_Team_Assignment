@@ -17,12 +17,12 @@ void JW_Player::Initialize()
     m_tInfo.vLook = { 1.f,0.f,0.f };
     
     m_fSpeed = 0.f;
-    m_fJumpPower = -0.7f;
-    m_fGravity = 0.002f;
-    m_fMaxFallSpeed = 0.1f;
+    m_fJumpPower = -2.f;
+    m_fGravity = 0.02f;
+    m_fMaxFallSpeed = 0.25f;
 
     m_fAngle = 0.f;
-    m_fRotateSpeed = 0.001f;
+    m_fRotateSpeed = 0.01f;
 
     m_fBodyLength = 15.f;
     m_fBeakLength = 20.f;
