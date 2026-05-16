@@ -18,7 +18,7 @@ CHW_Brick::~CHW_Brick()
 
 void CHW_Brick::Initialize()
 {
-	m_vOriginScale = { 50.f , 30.f, 0.f };
+	m_vOriginScale = { 50.f , 15.f, 0.f };
 
 	// »ç°¢Çü
 	m_vWorldPoints.resize(4);
@@ -35,8 +35,14 @@ void CHW_Brick::Initialize()
 
 }
 
-void CHW_Brick::Update()
+int CHW_Brick::Update()
 {
+	if (m_bIsCollide)
+		return -1;
+
+
+	return 0;
+
 }
 
 void CHW_Brick::LateUpdate()

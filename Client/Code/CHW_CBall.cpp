@@ -1,6 +1,6 @@
 #include "CHW_CBall.h"
 
-CHW_CBall::CHW_CBall() : fRadius(0.f), m_fSpeed(0.f), m_fCurAngle(0.f)
+CHW_CBall::CHW_CBall() : m_fRadius(0.f), m_fSpeed(0.f), m_fCurAngle(0.f)
 {
 }
 
@@ -15,9 +15,9 @@ void CHW_CBall::Initialize()
 	m_tInfo.vPos = { 400.f, 300.f, 0.f };		// 월드 위치
 
 
-	fRadius = 50.f;
+	m_fRadius = 20.f;
 
-	m_vOriginScale = { 30.f , 30.f, 0.f };
+	m_vOriginScale = { 20.f , 20.f, 0.f };
 
 	// 사각형
 	//m_vWorldPoints.resize(4);
@@ -34,9 +34,11 @@ void CHW_CBall::Initialize()
 		float fDegree = i * (360.f / iVertexNum);
 		float fRadian = fDegree * D3DX_PI / 180.f;
 
-		m_vWorldPoints.push_back({ m_tInfo.vPos.x + fRadius * cosf(fRadian),m_tInfo.vPos.y + fRadius * sinf(fRadian), 0.f });
+		m_vWorldPoints.push_back({ m_tInfo.vPos.x + m_fRadius * cosf(fRadian),m_tInfo.vPos.y + m_fRadius * sinf(fRadian), 0.f });
 
 	}
+
+
 
 
 	m_vOriginPoints.reserve(m_vWorldPoints.size());
@@ -53,7 +55,7 @@ void CHW_CBall::Initialize()
 	
 }
 
-void CHW_CBall::Update()
+int CHW_CBall::Update()
 {
 
 
@@ -82,6 +84,8 @@ void CHW_CBall::Update()
 	AdjustWorldMatrix();
 
 
+	return 0;
+
 	
 }
 
@@ -94,6 +98,10 @@ void CHW_CBall::LateUpdate()
 void CHW_CBall::Render(HDC hDC)
 {
 	RenderVertex(hDC);
+	//회전을 시각적으로 보여주기 위해
+	MoveToEx(hDC, m_vWorldPoints[0].x, m_vWorldPoints[0].y, NULL);
+	int next = m_vWorldPoints.size() / 2;
+	LineTo(hDC, m_vWorldPoints[next].x, m_vWorldPoints[next].y);
 }
 
 void CHW_CBall::Release()
@@ -103,24 +111,28 @@ void CHW_CBall::Release()
 
 void CHW_CBall::CheckBoundary()
 {
+	
+	// 정확하게는 체크 X
 
-	if (m_tInfo.vPos.x > 0 && m_tInfo.vPos.x < WINCX && m_tInfo.vPos.y > 0 && m_tInfo.vPos.y < WINCY)
+
+
+	if (m_tInfo.vPos.x - m_fRadius > 0 && m_tInfo.vPos.x + m_fRadius < WINCX && m_tInfo.vPos.y - m_fRadius > 0 && m_tInfo.vPos.y + m_fRadius < WINCY)
 		return;
 
 	_vec3 n = { 0,0,0 };
 
 
 
-	if (m_tInfo.vPos.x <= 0) {
+	if (m_tInfo.vPos.x - m_fRadius <= 0) {
 		n = { -1, 0, 0 };
 	}
-	if (m_tInfo.vPos.x >= WINCX) {
+	if (m_tInfo.vPos.x + m_fRadius >= WINCX) {
 		n = { 1, 0, 0 };
 	}
-	if (m_tInfo.vPos.y <= 0) {
+	if (m_tInfo.vPos.y - m_fRadius <= 0) {
 		n = { 0, 1, 0 };
 	}
-	if (m_tInfo.vPos.y >= WINCY) {
+	if (m_tInfo.vPos.y + m_fRadius >= WINCY) {
 		n = { 0, -1, 0 };
 	}
 

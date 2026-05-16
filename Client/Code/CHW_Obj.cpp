@@ -1,6 +1,6 @@
 #include "CHW_Obj.h"
 
-CHW_Obj::CHW_Obj()
+CHW_Obj::CHW_Obj() : m_bIsCollide(false)
 {
 	ZeroMemory(&m_tInfo, sizeof(tagInfo));
 }

@@ -1,9 +1,10 @@
 #include "HW_Scene.h"
 
+#include "CHW_AbstractFactory.h"
 #include "CHW_BmpMgr.h"
 #include "CHW_KeyMgr.h"
 #include "CHW_ObjMgr.h"
-#include "CHW_AbstractFactory.h"
+#include "CHW_CollisionMgr.h"
 
 #include "CHW_Obj.h"
 #include "CHW_CBall.h"
@@ -29,9 +30,9 @@ void HW_Scene::Initialize()
     CHW_ObjMgr::Get_Instance()->AddObject(HW_OBJ_STICK, CHW_AbstractFactory<CHW_Stick>::CreateObj());
 
 
-    for (size_t i = 0; i < 16; ++i) {
-        for (size_t j = 0; j < 2; ++j) {
-            CHW_ObjMgr::Get_Instance()->AddObject(HW_OBJ_BRICK, CHW_AbstractFactory<CHW_Brick>::CreateObj((i+1) * 50, (j+1) * 30));
+    for (size_t i = 0; i < 8;++i) {
+        for (size_t j = 0; j < 3; ++j) {
+            CHW_ObjMgr::Get_Instance()->AddObject(HW_OBJ_BRICK, CHW_AbstractFactory<CHW_Brick>::CreateObj(50 + i * 100, 15 + j * 30));
         }
     }
 
@@ -51,6 +52,8 @@ int HW_Scene::Update()
 
 void HW_Scene::Late_Update()
 {
+    CHW_CollisionMgr::Get_Instance()->CheckCollision_SAT(HW_OBJ_BALL, HW_OBJ_STICK);
+    CHW_CollisionMgr::Get_Instance()->CheckCollision_SAT(HW_OBJ_BALL, HW_OBJ_BRICK);
     CHW_ObjMgr::Get_Instance()->LateUpdate();
 }
 

@@ -24,8 +24,16 @@ void CHW_ObjMgr::Update()
 	{
 		for (auto iter = m_ObjList[i].begin(); iter != m_ObjList[i].end(); )
 		{
-			(*iter)->Update();
-			++iter;
+			
+
+			int iResult = (*iter)->Update();
+			if (-1 == iResult) {
+				Safe_Delete<CHW_Obj*>(*iter);
+				iter = m_ObjList[i].erase(iter);
+				continue;
+			}
+			else
+				++iter;
 		}
 	}
 }

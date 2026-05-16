@@ -8,7 +8,7 @@ public:
 
 public:
 	virtual void Initialize() PURE;
-	virtual void Update() PURE;
+	virtual int Update() PURE;
 	virtual void LateUpdate() PURE;
 	virtual void Render(HDC hDC) PURE;
 	virtual void Release() PURE;
@@ -20,9 +20,13 @@ public:
 	virtual void AdjustWorldMatrix(); //WorldMat 적용
 	virtual void RenderVertex(HDC hDC); //WorldMat 적용
 
+	void SetCollide(bool b) { m_bIsCollide = b; }
+	const bool GetCollide() { return m_bIsCollide; }
 public:
 	const vector<_vec3>& GetWorldPoints() const {return m_vWorldPoints;}
 protected:
+
+	bool m_bIsCollide;
 	_INFO m_tInfo;
 
 

@@ -7,7 +7,7 @@ public:
 	~CHW_CBall();
 public:
 	void Initialize() override;
-	void Update() override;
+	int Update() override;
 	void LateUpdate() override;
 	void Render(HDC hDC) override;
 	void Release() override;
@@ -18,7 +18,7 @@ public:
 	void MakeWorldMatrix() override;
 
 private:
-	float fRadius;
+	float m_fRadius;
 	_vec3 m_vOriginScale;	// 크기
 	_vec3 m_vVelocity;		// 속도
 

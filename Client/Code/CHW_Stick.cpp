@@ -38,7 +38,7 @@ void CHW_Stick::Initialize()
 
 }
 
-void CHW_Stick::Update()
+int CHW_Stick::Update()
 {
 	MoveToOrigin();
 
@@ -51,6 +51,8 @@ void CHW_Stick::Update()
 
 	//행렬 반영
 	AdjustWorldMatrix();
+
+	return 0;
 
 }
 

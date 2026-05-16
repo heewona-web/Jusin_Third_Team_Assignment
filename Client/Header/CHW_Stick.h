@@ -8,7 +8,7 @@ public:
     ~CHW_Stick();
 public:
     void Initialize() override;
-    void Update() override;
+    int Update() override;
     void LateUpdate() override;
     void Render(HDC hDC) override;
     void Release() override;

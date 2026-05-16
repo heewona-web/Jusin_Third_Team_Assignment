@@ -24,12 +24,12 @@ void CHW_CollisionMgr::CheckCollision_SAT(HW_OBJ_TYPE TYPE1, HW_OBJ_TYPE TYPE2)
 			//if (IsCollide_SAT(Src, Dst, &vAxis, &fMinOverlapped)) {
 			if (IsCollide_SAT(Src, Dst)) {
 
-			//	Src->SetCollide(true);
-			//	Dst->SetCollide(true);
-			//}
-			//else {
-			//	Src->SetCollide(false);
-			//	Dst->SetCollide(false);
+				Src->SetCollide(true);
+				Dst->SetCollide(true);
+			}
+			else {
+				Src->SetCollide(false);
+				Dst->SetCollide(false);
 
 			}
 		}
