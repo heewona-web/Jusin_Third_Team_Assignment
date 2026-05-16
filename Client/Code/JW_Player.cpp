@@ -83,10 +83,9 @@ void JW_Player::Jump()
 
     m_tInfo.vPos.y += m_fSpeed;
 
-    if (m_tInfo.vPos.y > WINCY) {
-        m_tInfo.vPos.y = WINCY;
-        //게임 오버 처리 필요
-    }
+    //if (m_tInfo.vPos.y > WINCY) {
+    //    m_tInfo.vPos.y = WINCY;
+    //}
 
     if (m_fSpeed < 0.f) {
         m_fAngle = D3DXToRadian(-45.f);

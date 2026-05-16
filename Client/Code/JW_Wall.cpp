@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "JW_Wall.h"
 
-JW_Wall::JW_Wall() :m_fWidth(0.f), m_fGapSize(0.f), m_fGapY(0.f)
+JW_Wall::JW_Wall() :m_fWidth(0.f), m_fGapSize(0.f), m_fGapY(0.f), m_bPlayerPass(false)
 {
 }
 
@@ -18,7 +18,6 @@ void JW_Wall::Initialize()
 
 	m_fWidth = 60.f;
 	m_fGapSize = 250.f;
-
 	m_fGapY = (float)(rand() % (WINCY - 300) + 150);
 }
 
@@ -27,6 +26,8 @@ void JW_Wall::Update()
 	m_tInfo.vPos.x -= m_fSpeed;
 
 	if (m_tInfo.vPos.x < -m_fWidth) {
+		m_bPlayerPass = false;
+
 		m_tInfo.vPos.x = WINCX + m_fWidth;
 		m_fGapY = (float)(rand() % (WINCY - 300) + 150);
 	}

@@ -23,6 +23,9 @@ private:
 	void Jump();
 	void Body_Rotate();
 
+public:
+	const float Get_BodyLength() const { return m_fBodyLength; }
+
 protected:
 	D3DXVECTOR3 vBodyVertex[5];
 	D3DXVECTOR3 vLocalBodyVertex[5];

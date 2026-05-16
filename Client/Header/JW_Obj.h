@@ -18,6 +18,9 @@ public:
 public:
 	void Set_PosX(float _x) { m_tInfo.vPos.x = _x; }
 
+public:
+	const tagInfo& Get_Info() const { return m_tInfo; }
+
 protected:
 	tagInfo m_tInfo;
 

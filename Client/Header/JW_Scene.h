@@ -18,5 +18,12 @@ public:
     void Release() override;
 
 private:
+    void Check_GameOver();
+    void Scoring();
+
+private:
     JW_Obj* m_pPlayer;
+
+    int m_iScore;
+    bool m_bGameOver;
 };

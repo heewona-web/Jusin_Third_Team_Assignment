@@ -19,6 +19,9 @@ public:
 	void Release();
 
 public:
+	const list<JW_Obj*>& Get_ObjList(OBJID eID) { return m_ObjList[eID]; }
+
+public:
 	static JW_ObjMgr* Get_Instance()
 	{
 		if (!m_pInstance)
