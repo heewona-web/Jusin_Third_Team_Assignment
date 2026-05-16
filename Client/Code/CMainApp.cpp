@@ -14,6 +14,8 @@ CMainApp::~CMainApp()
 
 HRESULT CMainApp::Ready_MainApp()
 {
+	m_hDC = GetDC(g_hWnd);
+
 	if (FAILED(CGraphicDev::GetInstance()->Ready_GraphicDev(g_hWnd, MODE_WIN, WINCX, WINCY, &m_pDeviceClass)))
 		return E_FAIL;
 
@@ -36,8 +38,6 @@ void CMainApp::LateUpdate_MainApp(const _float& fTimeDelta)
 void CMainApp::Render_MainApp()
 {
 	//m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
-
-	HDC m_hDC = GetDC(g_hWnd);
 
 	HDC m_BackDC = CHW_BmpMgr::Get_Instance()->Find_Image(L"Back");
 	Rectangle(m_BackDC, 0, 0, WINCX, WINCY);
@@ -64,4 +64,8 @@ CMainApp* CMainApp::Create()
 void CMainApp::Free()
 {
 	m_pDeviceClass->DestroyInstance();
+	CHW_BmpMgr::Destroy_Instance();
+	CSceneMgr::Destroy_Instance();
+
+	ReleaseDC(g_hWnd, m_hDC);
 }
