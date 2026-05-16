@@ -4,6 +4,7 @@
 #include "CBU_CollisionUtil.h"
 #include "CBU_Player.h"
 #include "CBU_Spawner.h"
+#include <CBU_RenderUtil.h>
 
 void CBU_Scene::Initialize(void)
 {
@@ -66,6 +67,7 @@ void CBU_Scene::Late_Update(void)
 void CBU_Scene::Render(HDC hDC) 
 {
 	CBU_ObjectManager::GetInstance()->Render(hDC);
+	CBU_RenderUtil::RenderCommonUI(hDC);
 }
 
 void CBU_Scene::Release(void) 
