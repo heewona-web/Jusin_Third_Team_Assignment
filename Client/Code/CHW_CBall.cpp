@@ -1,6 +1,6 @@
 #include "CHW_CBall.h"
 
-CHW_CBall::CHW_CBall() : m_fSpeed(0.f)
+CHW_CBall::CHW_CBall() : fRadius(0.f), m_fSpeed(0.f), m_fCurAngle(0.f)
 {
 }
 
@@ -15,26 +15,40 @@ void CHW_CBall::Initialize()
 	m_tInfo.vPos = { 400.f, 300.f, 0.f };		// 월드 위치
 
 
-
+	fRadius = 50.f;
 
 	m_vOriginScale = { 30.f , 30.f, 0.f };
 
 	// 사각형
-	m_vWorldPoints.resize(4);
-	m_vWorldPoints[0] = { m_tInfo.vPos.x - m_vOriginScale.x, m_tInfo.vPos.y - m_vOriginScale.y, 0.f }; // 죄상단
-	m_vWorldPoints[1] = { m_tInfo.vPos.x + m_vOriginScale.x, m_tInfo.vPos.y - m_vOriginScale.y, 0.f }; // 우상단
-	m_vWorldPoints[2] = { m_tInfo.vPos.x + m_vOriginScale.x, m_tInfo.vPos.y + m_vOriginScale.y, 0.f }; // 우하단
-	m_vWorldPoints[3] = { m_tInfo.vPos.x - m_vOriginScale.x, m_tInfo.vPos.y + m_vOriginScale.y, 0.f }; // 좌하단
+	//m_vWorldPoints.resize(4);
+	//m_vWorldPoints[0] = { m_tInfo.vPos.x - m_vOriginScale.x, m_tInfo.vPos.y - m_vOriginScale.y, 0.f }; // 죄상단
+	//m_vWorldPoints[1] = { m_tInfo.vPos.x + m_vOriginScale.x, m_tInfo.vPos.y - m_vOriginScale.y, 0.f }; // 우상단
+	//m_vWorldPoints[2] = { m_tInfo.vPos.x + m_vOriginScale.x, m_tInfo.vPos.y + m_vOriginScale.y, 0.f }; // 우하단
+	//m_vWorldPoints[3] = { m_tInfo.vPos.x - m_vOriginScale.x, m_tInfo.vPos.y + m_vOriginScale.y, 0.f }; // 좌하단
 
-	
+	// 거의 원
+	const int iVertexNum = 18;
+	m_vWorldPoints.reserve(iVertexNum);
+	for (size_t i = 0; i < iVertexNum; ++i) {
+		
+		float fDegree = i * (360.f / iVertexNum);
+		float fRadian = fDegree * D3DX_PI / 180.f;
+
+		m_vWorldPoints.push_back({ m_tInfo.vPos.x + fRadius * cosf(fRadian),m_tInfo.vPos.y + fRadius * sinf(fRadian), 0.f });
+
+	}
+
+
 	m_vOriginPoints.reserve(m_vWorldPoints.size());
 	for (auto& v : m_vWorldPoints) {
 		m_vOriginPoints.push_back(v - m_tInfo.vPos); //Origin 은 (0,0)기준으로 크기만 반영되게끔 조작
+
+		//m_vOriginPoints.push_back(v);
 	}
 
 
 	m_fSpeed = 0.5f;
-	m_vVelocity = { m_fSpeed , m_fSpeed , 0.f }; //초기 속도
+	m_vVelocity = { m_fSpeed , 1 , 0.f }; //초기 속도
 	D3DXVec3Normalize(&m_tInfo.vDir, &m_vVelocity); 
 	
 }
@@ -44,6 +58,14 @@ void CHW_CBall::Update()
 
 
 	MoveToOrigin();
+
+
+	// 매 프레임 회전
+	m_fCurAngle += m_fRotAngle;
+	if (m_fCurAngle > 2 * D3DX_PI) {
+		m_fCurAngle -= 2 * D3DX_PI;
+	}
+	
 
 	//경계면 체크
 	CheckBoundary();
@@ -113,6 +135,20 @@ void CHW_CBall::SetDirection(_vec3 normal)
 	_vec3 vNewDir = m_vVelocity - 2 * fDot * normal;
 
 	D3DXVec3Normalize(&m_tInfo.vDir, &vNewDir);
+}
+
+void CHW_CBall::MakeWorldMatrix()
+{
+	D3DXMATRIX		matScale, matRotZ, matTrans;
+
+	D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
+
+	D3DXMatrixRotationZ(&matRotZ, m_fCurAngle);
+
+	
+	D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z);
+
+	m_tInfo.matWorld = matScale * matRotZ * matTrans;
 }
 
 
