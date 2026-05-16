@@ -149,7 +149,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CBU_Cheese.h" />
+    <ClInclude Include="..\Header\CBU_Letuce.h" />
+    <ClInclude Include="..\Header\CBU_Patty.h" />
     <ClInclude Include="..\Header\CBU_Spawner.h" />
+    <ClInclude Include="..\Header\CBU_Tomato.h" />
     <ClInclude Include="..\Header\CHW_BmpMgr.h" />
     <ClInclude Include="..\Header\CHW_CBall.h" />
     <ClInclude Include="..\Header\BU_Define.h" />
@@ -177,7 +181,11 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CBU_Cheese.cpp" />
+    <ClCompile Include="..\Code\CBU_Letuce.cpp" />
+    <ClCompile Include="..\Code\CBU_Patty.cpp" />
     <ClCompile Include="..\Code\CBU_Spawner.cpp" />
+    <ClCompile Include="..\Code\CBU_Tomato.cpp" />
     <ClCompile Include="..\Code\CHW_BmpMgr.cpp" />
     <ClCompile Include="..\Code\CHW_CBall.cpp" />
     <ClCompile Include="..\Code\CBU_Actor.cpp" />

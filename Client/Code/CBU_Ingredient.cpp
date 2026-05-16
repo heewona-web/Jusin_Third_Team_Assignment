@@ -13,7 +13,7 @@ CBU_Ingredient::~CBU_Ingredient()
 void CBU_Ingredient::Initialize(void)
 {
 	// 크기 정보 초기화
-	m_vecScale = { 10.f, 10.f, 10.f };
+	m_vecScale = { 30.f, 10.f, 30.f };
 	// 위치 정보 초기화
 	m_tInfo.vPos = { float(WINCX) / 2.f, 50.f, 0.f };
 	m_tInfo.vDir = { 0.f, 0.f, 0.f };
@@ -85,10 +85,18 @@ void CBU_Ingredient::OnCollision(CBU_Object* pObj)
 		// 충돌했을 때 Pos 값을 m_pParentObject에서의 상대값으로 업데이트 해줘야함
 		m_tInfo.vPos = m_tInfo.vPos - m_pParentObject->GetInfo().vPos;
 
-		// 자전 값은 유지
+		// 크자이 값을 고정하여 저장
+		_matrix matScale;
+		D3DXMatrixScaling(&matScale, m_vecScale.x, m_vecScale.y, m_vecScale.z);
+		_matrix matRot;
+		D3DXMatrixRotationZ(&matRot, m_fAngle);
+		_matrix matTrans;
+		D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z);
+		m_matFixed = matScale * matRot * matTrans;
 
 		// 공전 값을 현재 각도의 -만큼으로 저장해둬야 회전 오차가 사라짐
 		m_fOrbitOffset = -m_pParentObject->GetAngle();
+		m_fOrbitOffsetX = -m_pParentObject->GetAngleX();
 		// 중력 영향 안받게 됨
 		ToggleGravity();
 	}

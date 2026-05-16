@@ -1,43 +1,35 @@
-#include "CBU_Spawner.h"
-#include "CBU_Ingredient.h"
-#include "CBU_Patty.h"
-#include "CBU_Letuce.h"
-#include "CBU_Cheese.h"
 #include "CBU_Tomato.h"
 
-#include "CBU_ObjectManager.h"
+CBU_Tomato::CBU_Tomato()
+{
 
-CBU_Spawner::CBU_Spawner() : CBU_Object(BU_OBJID::SPAWNER), m_ullSpawnCoolTime(0), m_ullLastSpawnTime(0)
+}
+CBU_Tomato::~CBU_Tomato()
 {
 
 }
 
-CBU_Spawner::~CBU_Spawner()
-{
-
-}
-
-void CBU_Spawner::Initialize(void)
+void CBU_Tomato::Initialize(void)
 {
 	// 크기 정보 초기화
-	m_vecScale = { 50.f, 20.f, 50.f };
+	m_vecScale = { 40.f, 15.f, 40.f };
 	// 위치 정보 초기화
-	m_tInfo.vPos = {float(WINCX)/2.f, 50.f, 0.f};
-	m_tInfo.vDir = { -1.f, 0.f, 0.f };
+	m_tInfo.vPos = { float(WINCX) / 2.f, 50.f, 0.f };
+	m_tInfo.vDir = { 0.f, 0.f, 0.f };
 	m_tInfo.vLook = { 0.f, 0.f, 1.f };
 
 	// 버텍스 정보 초기화
-	// 넓적한 팔각기둥인데 위가 작음
-	m_vecOriginalVertices.push_back({ -1.0452f, -0.5f, 0.f }); // 0
-	m_vecOriginalVertices.push_back({ -0.739068f, -0.5f, 0.739068f }); // 1
-	m_vecOriginalVertices.push_back({ 0.f, -0.5f, 1.0452f }); // 2
-	m_vecOriginalVertices.push_back({ 0.739068f, -0.5f, 0.739068f }); // 3
-	m_vecOriginalVertices.push_back({ 1.0452f, -0.5f, 0.f }); // 4
-	m_vecOriginalVertices.push_back({ 0.739068f, -0.5f, -0.739068f }); // 5
-	m_vecOriginalVertices.push_back({ 0.f, -0.5f, -1.0452f }); // 6
-	m_vecOriginalVertices.push_back({ -0.739068f, -0.5f, -0.739068f }); // 7
+	// 넓적한 팔각기둥...
+	m_vecOriginalVertices.push_back({ -1.3065f, -0.5f, 0.f }); // 0
+	m_vecOriginalVertices.push_back({ -0.923835f, -0.5f, 0.923835f }); // 1
+	m_vecOriginalVertices.push_back({ 0.f, -0.5f, 1.3065f }); // 2
+	m_vecOriginalVertices.push_back({ 0.923835f, -0.5f, 0.923835f }); // 3
+	m_vecOriginalVertices.push_back({ 1.3065f, -0.5f, 0.f }); // 4
+	m_vecOriginalVertices.push_back({ 0.923835f, -0.5f, -0.923835f }); // 5
+	m_vecOriginalVertices.push_back({ 0.f, -0.5f, -1.3065f }); // 6
+	m_vecOriginalVertices.push_back({ -0.923835f, -0.5f, -0.923835f }); // 7
 	m_vecOriginalVertices.push_back({ -0.f, -0.5f, -0.f }); // 8 중심
-	
+
 	m_vecOriginalVertices.push_back({ -1.3065f, 0.5f, 0.f }); // 0
 	m_vecOriginalVertices.push_back({ -0.923835f, 0.5f, 0.923835f }); // 1
 	m_vecOriginalVertices.push_back({ 0.f, 0.5f, 1.3065f }); // 2
@@ -91,54 +83,5 @@ void CBU_Spawner::Initialize(void)
 	m_pIndicesList.push_back(new INDEX32({ 16, 9, 17 }));
 
 	m_fSpeed = 10.f;
-
-	// 스폰 정보 초기화
-	m_ullSpawnCoolTime = 100;
-	m_ullLastSpawnTime = 0;
-
-	srand(time(NULL));
-}
-
-void CBU_Spawner::LateUpdate(void)
-{
-	if (m_tInfo.vPos.x < 0.f || m_tInfo.vPos.x > float(WINCX))
-	{
-		m_tInfo.vDir.x *= -1.f;
-	}
-
-	//ULONGLONG ullCurrentTime = GetTickCount64();
-	if (m_ullLastSpawnTime <= 0)
-	{
-		int iRandom = rand() % 100;
-		CBU_Ingredient* pIngredient = nullptr;
-		if (iRandom < 33)
-		{
-			// 33%확률로 패티
-			pIngredient = new CBU_Patty;
-		}
-		else if (iRandom < 66)
-		{
-			// 33%확률로 치즈
-			pIngredient = new CBU_Cheese;
-		}
-		else if (iRandom < 100)
-		{
-			// 34%확률로 토마토
-			pIngredient = new CBU_Tomato;
-		}
-		//else if (iRandom < 100)
-		//{
-		//	// 20%확률로 양상추
-		//	pIngredient = new CBU_Letuce;
-		//}
-		pIngredient->Initialize();
-		pIngredient->SetPos({ m_tInfo.vPos.x, m_tInfo.vPos.y + m_vecScale.y, m_tInfo.vPos.z });
-		CBU_ObjectManager::GetInstance()->AddObject(BU_OBJID::INGREDIENT, pIngredient);
-		// 최종 스폰시간 최신화
-		m_ullLastSpawnTime = m_ullSpawnCoolTime;
-	}
-	else
-	{
-		--m_ullLastSpawnTime;
-	}
+	ToggleGravity();
 }

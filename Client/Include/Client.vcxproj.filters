@@ -91,6 +91,18 @@
     <Filter Include="00. MainApp\04. BU\01.Object\03.Spawner">
       <UniqueIdentifier>{9ff90593-174c-4c6e-9570-e0f4b8e18f76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. MainApp\04. BU\01.Object\02.Ingredient\01.Patty">
+      <UniqueIdentifier>{d7163327-2c16-4b53-9c55-56e70b423d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\04. BU\01.Object\02.Ingredient\02.Letuce">
+      <UniqueIdentifier>{2927ece5-6ce2-4712-b242-4a7acc95c53e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\04. BU\01.Object\02.Ingredient\03.Cheese">
+      <UniqueIdentifier>{e39040c1-1e6d-4e50-94d0-5fd9317945c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\04. BU\01.Object\02.Ingredient\04.Tomato">
+      <UniqueIdentifier>{6d0b4535-3a7a-4d71-ae73-2c9f0f398329}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -171,6 +183,18 @@
     <ClInclude Include="..\Header\CBU_Spawner.h">
       <Filter>00. MainApp\04. BU\01.Object\03.Spawner</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CBU_Patty.h">
+      <Filter>00. MainApp\04. BU\01.Object\02.Ingredient\01.Patty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBU_Cheese.h">
+      <Filter>00. MainApp\04. BU\01.Object\02.Ingredient\03.Cheese</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBU_Letuce.h">
+      <Filter>00. MainApp\04. BU\01.Object\02.Ingredient\02.Letuce</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBU_Tomato.h">
+      <Filter>00. MainApp\04. BU\01.Object\02.Ingredient\04.Tomato</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -235,6 +259,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CBU_Spawner.cpp">
       <Filter>00. MainApp\04. BU\01.Object\03.Spawner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBU_Patty.cpp">
+      <Filter>00. MainApp\04. BU\01.Object\02.Ingredient\01.Patty</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBU_Cheese.cpp">
+      <Filter>00. MainApp\04. BU\01.Object\02.Ingredient\03.Cheese</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBU_Letuce.cpp">
+      <Filter>00. MainApp\04. BU\01.Object\02.Ingredient\02.Letuce</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBU_Tomato.cpp">
+      <Filter>00. MainApp\04. BU\01.Object\02.Ingredient\04.Tomato</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

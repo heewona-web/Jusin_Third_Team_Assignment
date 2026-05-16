@@ -18,21 +18,24 @@ void CBU_Object::Update(void)
 		UpdateGravity();
 	}
 	// 연결 된 상태. 중력을 받지 않고 현 위치에서 플레이어 기준으로 공전과 이동만 함
-	// 자전값에는 공전값을 추가함
+	// 공전값에는 오프셋 값을 추가함
 	if (m_pParentObject)
 	{
-		_matrix matScale;
-		D3DXMatrixScaling(&matScale, m_vecScale.x, m_vecScale.y, m_vecScale.z);
-		_matrix matRot;
-		D3DXMatrixRotationZ(&matRot, m_fAngle);
-		_matrix matTrans;
-		D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z);
-		_matrix matOrbit;
-		D3DXMatrixRotationZ(&matOrbit, m_fOrbitOffset + m_pParentObject->GetAngle());
+		//_matrix matScale;
+		//D3DXMatrixScaling(&matScale, m_vecScale.x, m_vecScale.y, m_vecScale.z);
+		//_matrix matRot;
+		//D3DXMatrixRotationZ(&matRot, m_fAngle);
+		//_matrix matTrans;
+		//D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z);
+		_matrix matOrbitZ;
+		D3DXMatrixRotationZ(&matOrbitZ, m_fOrbitOffset + m_pParentObject->GetAngle());
+		_matrix matOrbitX;
+		D3DXMatrixRotationX(&matOrbitX, m_fOrbitOffsetX + m_pParentObject->GetAngleX());
 		_matrix matParent;
 		D3DXMatrixTranslation(&matParent, m_pParentObject->GetInfo().vPos.x, m_pParentObject->GetInfo().vPos.y, m_pParentObject->GetInfo().vPos.z);
 
-		m_tInfo.matWorld = matScale * matRot * matTrans * matOrbit * matParent;
+		//m_tInfo.matWorld = matScale * matRot * matTrans * matOrbit * matParent;
+		m_tInfo.matWorld = m_matFixed * matOrbitZ * matOrbitX * matParent;
 	}
 	// 연결이 안 된 상태. 중력을 받아 떨어짐
 	else
@@ -42,10 +45,12 @@ void CBU_Object::Update(void)
 		D3DXMatrixScaling(&matScale, m_vecScale.x, m_vecScale.y, m_vecScale.z);
 		_matrix matTrans;
 		D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z);
-		_matrix matRot;
-		D3DXMatrixRotationZ(&matRot, m_fAngle);
+		_matrix matRotZ;
+		D3DXMatrixRotationZ(&matRotZ, m_fAngle);
+		_matrix matRotX;
+		D3DXMatrixRotationX(&matRotX, m_fAngleX);
 
-		m_tInfo.matWorld = matScale * matRot * matTrans;
+		m_tInfo.matWorld = matScale * matRotZ * matRotX * matTrans;
 	}
 	// m_pParentObject의 Angle 값으로 공전, 위치 값으로 이동을 추가해야함
 	// 충돌 당시 위치를 Pos로 고정 (중력 안받음)
