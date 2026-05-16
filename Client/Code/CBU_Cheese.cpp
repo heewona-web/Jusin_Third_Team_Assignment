@@ -12,7 +12,7 @@ CBU_Cheese::~CBU_Cheese()
 void CBU_Cheese::Initialize(void)
 {
 	// 크기 정보 초기화
-	m_vecScale = { 40.f, 10.f, 40.f };
+	m_vecScale = { 40.f, 11.f, 40.f };
 	// 위치 정보 초기화
 	m_tInfo.vPos = { float(WINCX) / 2.f, 50.f, 0.f };
 	m_tInfo.vDir = { 0.f, 0.f, 0.f };
