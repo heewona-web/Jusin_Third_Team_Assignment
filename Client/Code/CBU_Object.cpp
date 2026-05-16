@@ -22,13 +22,13 @@ void CBU_Object::Update(void)
 	if (m_pParentObject)
 	{
 		_matrix matScale;
-		D3DXMatrixScaling(&matScale, 10.f, 10.f, 10.f);
+		D3DXMatrixScaling(&matScale, m_vecScale.x, m_vecScale.y, m_vecScale.z);
 		_matrix matRot;
-		D3DXMatrixRotationZ(&matRot, m_fAngle + m_pParentObject->GetAngle());
+		D3DXMatrixRotationZ(&matRot, m_fAngle);
 		_matrix matTrans;
 		D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z);
 		_matrix matOrbit;
-		D3DXMatrixRotationZ(&matOrbit, m_pParentObject->GetAngle());
+		D3DXMatrixRotationZ(&matOrbit, m_fOrbitOffset + m_pParentObject->GetAngle());
 		_matrix matParent;
 		D3DXMatrixTranslation(&matParent, m_pParentObject->GetInfo().vPos.x, m_pParentObject->GetInfo().vPos.y, m_pParentObject->GetInfo().vPos.z);
 
@@ -51,41 +51,27 @@ void CBU_Object::Update(void)
 	// 충돌 당시 위치를 Pos로 고정 (중력 안받음)
 
 	// 정점 업데이트
-	for (size_t idx = 0; idx < m_pVecOriginalVertices.size(); ++idx)
-	{
-		D3DXVec3TransformCoord(m_pVecRenderVertices.at(idx), m_pVecOriginalVertices.at(idx), &m_tInfo.matWorld);
-	}
+	// 개선 필요
+	//for (size_t idx = 0; idx < m_vecOriginalVertices.size(); ++idx)
+	//{
+	//	D3DXVec3TransformCoord(m_vecRenderVertices.at(idx), m_vecOriginalVertices.at(idx), &m_tInfo.matWorld);
+
+	//}
+	// 배열 연산으로 개선
+	D3DXVec3TransformCoordArray(m_vecRenderVertices.data(), sizeof(_vec3), m_vecOriginalVertices.data(), sizeof(_vec3), &m_tInfo.matWorld, m_vecOriginalVertices.size());
 }
 void CBU_Object::Render(HDC hDC) const
 {
 	for (auto pIndices : m_pIndicesList)
 	{
-		MoveToEx(hDC, LONG(m_pVecRenderVertices.at(pIndices->_0)->x), LONG(m_pVecRenderVertices.at(pIndices->_0)->y), nullptr);
-		LineTo(hDC, LONG(m_pVecRenderVertices.at(pIndices->_1)->x), LONG(m_pVecRenderVertices.at(pIndices->_1)->y));
-		LineTo(hDC, LONG(m_pVecRenderVertices.at(pIndices->_2)->x), LONG(m_pVecRenderVertices.at(pIndices->_2)->y));
-		LineTo(hDC, LONG(m_pVecRenderVertices.at(pIndices->_0)->x), LONG(m_pVecRenderVertices.at(pIndices->_0)->y));
+		MoveToEx(hDC, LONG(m_vecRenderVertices.at(pIndices->_0).x), LONG(m_vecRenderVertices.at(pIndices->_0).y), nullptr);
+		LineTo(hDC, LONG(m_vecRenderVertices.at(pIndices->_1).x), LONG(m_vecRenderVertices.at(pIndices->_1).y));
+		LineTo(hDC, LONG(m_vecRenderVertices.at(pIndices->_2).x), LONG(m_vecRenderVertices.at(pIndices->_2).y));
+		LineTo(hDC, LONG(m_vecRenderVertices.at(pIndices->_0).x), LONG(m_vecRenderVertices.at(pIndices->_0).y));
 	}
 }
 void CBU_Object::Free(void)
 {
-	for (auto iter = m_pVecOriginalVertices.begin(); iter != m_pVecOriginalVertices.end();)
-	{
-		if (*iter != nullptr)
-		{
-			delete* iter;
-			iter = m_pVecOriginalVertices.erase(iter);
-		}
-	}
-	m_pVecOriginalVertices.clear();
-	for (auto iter = m_pVecRenderVertices.begin(); iter != m_pVecRenderVertices.end();)
-	{
-		if (*iter != nullptr)
-		{
-			delete* iter;
-			iter = m_pVecRenderVertices.erase(iter);
-		}
-	}
-	m_pVecRenderVertices.clear();
 	for (auto iter = m_pIndicesList.begin(); iter != m_pIndicesList.end();)
 	{
 		if (*iter != nullptr)
@@ -94,8 +80,8 @@ void CBU_Object::Free(void)
 			iter = m_pIndicesList.erase(iter);
 		}
 	}
-	if(m_pParentObject)
-		Safe_Release(m_pParentObject);
+
+	Safe_Release(m_pParentObject);
 }
 
 void CBU_Object::UpdateGravity(void)

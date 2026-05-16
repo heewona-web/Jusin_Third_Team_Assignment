@@ -28,12 +28,12 @@ bool CBU_CollisionUtil::IsCollide_SAT(const CBU_Object* pSrcObj, const CBU_Objec
 	//CObj1의 모서리
 	for (size_t i = 0; i < vecVertexs1.size(); ++i) {
 
-		edges.push_back(*vecVertexs1[i] - *vecVertexs1[(i + 1) % vecVertexs1.size()]);
+		edges.push_back(vecVertexs1[i] - vecVertexs1[(i + 1) % vecVertexs1.size()]);
 	}
 	//CObj2의 모서리
 	for (size_t i = 0; i < vecVertexs2.size(); ++i) {
 
-		edges.push_back(*vecVertexs2[i] - *vecVertexs2[(i + 1) % vecVertexs2.size()]);
+		edges.push_back(vecVertexs2[i] - vecVertexs2[(i + 1) % vecVertexs2.size()]);
 	}
 
 	// 모서리 => 법선 벡터 ( 축 ) 
@@ -63,12 +63,12 @@ void CBU_CollisionUtil::Project(const CBU_Object* pObj, const D3DXVECTOR3 vAxis,
 {
 
 	const auto& vecVertexs = pObj->GetRenderVertices();
-	fOutMin = fOutMax = D3DXVec3Dot(vecVertexs[0], &vAxis);
+	fOutMin = fOutMax = D3DXVec3Dot(&vecVertexs[0], &vAxis);
 
 
 	for (int i = 1; i < vecVertexs.size(); ++i) {
 
-		float fDot = D3DXVec3Dot(vecVertexs[i], &vAxis);
+		float fDot = D3DXVec3Dot(&vecVertexs[i], &vAxis);
 		fOutMin = min(fOutMin, fDot);
 		fOutMax = max(fOutMax, fDot);
 

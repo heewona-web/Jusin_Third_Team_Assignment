@@ -23,15 +23,15 @@ void CBU_Spawner::Initialize(void)
 	m_tInfo.vLook = { 0.f, 0.f, 1.f };
 
 	// 버텍스 정보 초기화
-	m_pVecOriginalVertices.push_back(new _vec3({ -1.f, -0.5f, 0.f })); // 0
-	m_pVecOriginalVertices.push_back(new _vec3({ 1.f, -0.5f, 0.f })); // 1
-	m_pVecOriginalVertices.push_back(new _vec3({ 1.f, 0.5f, 0.f })); // 2
-	m_pVecOriginalVertices.push_back(new _vec3({ -1.f, 0.5f, 0.f })); // 3
+	m_vecOriginalVertices.push_back({ -1.f, -0.5f, 0.f }); // 0
+	m_vecOriginalVertices.push_back({ 1.f, -0.5f, 0.f }); // 1
+	m_vecOriginalVertices.push_back({ 1.f, 0.5f, 0.f }); // 2
+	m_vecOriginalVertices.push_back({ -1.f, 0.5f, 0.f }); // 3
 
 	// 렌더 정보 버텍스에 같은 크기만큼 복사
-	for (size_t idx = 0; idx < m_pVecOriginalVertices.size(); ++idx)
+	for (size_t idx = 0; idx < m_vecOriginalVertices.size(); ++idx)
 	{
-		m_pVecRenderVertices.push_back(new _vec3);
+		m_vecRenderVertices.push_back({ 0.f, 0.f, 0.f });
 	}
 
 	// 인덱스 정보 초기화
@@ -41,8 +41,8 @@ void CBU_Spawner::Initialize(void)
 	m_fSpeed = 10.f;
 
 	// 스폰 정보 초기화
-	m_ullSpawnCoolTime = 100;
-	m_ullLastSpawnTime = GetTickCount64();
+	m_ullSpawnCoolTime = 10;
+	m_ullLastSpawnTime = 0;
 }
 
 void CBU_Spawner::LateUpdate(void)
@@ -52,14 +52,18 @@ void CBU_Spawner::LateUpdate(void)
 		m_tInfo.vDir.x *= -1.f;
 	}
 
-	ULONGLONG ullCurrentTime = GetTickCount64();
-	if (ullCurrentTime > m_ullLastSpawnTime + m_ullSpawnCoolTime)
+	//ULONGLONG ullCurrentTime = GetTickCount64();
+	if (m_ullLastSpawnTime <= 0)
 	{
 		CBU_Ingredient* pIngredient = new CBU_Ingredient;
 		pIngredient->Initialize();
 		pIngredient->SetPos({ m_tInfo.vPos.x, m_tInfo.vPos.y + m_vecScale.y, m_tInfo.vPos.z });
 		CBU_ObjectManager::GetInstance()->AddObject(BU_OBJID::INGREDIENT, pIngredient);
 		// 최종 스폰시간 최신화
-		m_ullLastSpawnTime = ullCurrentTime;
+		m_ullLastSpawnTime = m_ullSpawnCoolTime;
+	}
+	else
+	{
+		--m_ullLastSpawnTime;
 	}
 }

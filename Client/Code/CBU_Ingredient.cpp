@@ -20,15 +20,15 @@ void CBU_Ingredient::Initialize(void)
 	m_tInfo.vLook = { 0.f, 0.f, 1.f };
 
 	// 버텍스 정보 초기화
-	m_pVecOriginalVertices.push_back(new _vec3({ -1.f, -0.5f, 0.f })); // 0
-	m_pVecOriginalVertices.push_back(new _vec3({ 1.f, -0.5f, 0.f })); // 1
-	m_pVecOriginalVertices.push_back(new _vec3({ 1.f, 0.5f, 0.f })); // 2
-	m_pVecOriginalVertices.push_back(new _vec3({ -1.f, 0.5f, 0.f })); // 3
+	m_vecOriginalVertices.push_back({ -1.f, -0.5f, 0.f }); // 0
+	m_vecOriginalVertices.push_back({ 1.f, -0.5f, 0.f }); // 1
+	m_vecOriginalVertices.push_back({ 1.f, 0.5f, 0.f }); // 2
+	m_vecOriginalVertices.push_back({ -1.f, 0.5f, 0.f }); // 3
 
 	// 렌더 정보 버텍스에 같은 크기만큼 복사
-	for (size_t idx = 0; idx < m_pVecOriginalVertices.size(); ++idx)
+	for (size_t idx = 0; idx < m_vecOriginalVertices.size(); ++idx)
 	{
-		m_pVecRenderVertices.push_back(new _vec3);
+		m_vecRenderVertices.push_back({ 0.f, 0.f, 0.f });
 	}
 
 	// 인덱스 정보 초기화
@@ -41,6 +41,12 @@ void CBU_Ingredient::Initialize(void)
 
 void CBU_Ingredient::LateUpdate(void)
 {
+	// 화면 아래로 떨어지면 오브젝트 사망 처리
+	//if (m_tInfo.vPos.y > float(WINCY) && !m_pParentObject)
+	if (m_tInfo.vPos.y > float(WINCY))
+	{
+		SetDead();
+	}
 }
 
 void CBU_Ingredient::Render(HDC hDC) const
@@ -81,6 +87,8 @@ void CBU_Ingredient::OnCollision(CBU_Object* pObj)
 
 		// 자전 값은 유지
 
+		// 공전 값을 현재 각도의 -만큼으로 저장해둬야 회전 오차가 사라짐
+		m_fOrbitOffset = -m_pParentObject->GetAngle();
 		// 중력 영향 안받게 됨
 		ToggleGravity();
 	}

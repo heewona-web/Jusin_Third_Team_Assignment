@@ -17,6 +17,7 @@ public:
 	void Release(void);
 
 	void AddObject(BU_OBJID eObjId, CBU_Object* pObj);
+	void DeleteDeadObj(void);
 	const vector<CBU_Object*>& GetObjectVector(BU_OBJID eObjId) const;
 
 private:

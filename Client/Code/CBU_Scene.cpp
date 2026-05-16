@@ -58,6 +58,9 @@ void CBU_Scene::Late_Update(void)
 			}
 		}
 	}
+
+	// 사망 오브젝트 회수
+	CBU_ObjectManager::GetInstance()->DeleteDeadObj();
 }
 
 void CBU_Scene::Render(HDC hDC) 

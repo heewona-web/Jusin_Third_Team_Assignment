@@ -21,15 +21,15 @@ void CBU_Actor::Initialize(void)
 	m_tInfo.vLook = { 0.f, 0.f, 1.f };
 
 	// 버텍스 정보 초기화
-	m_pVecOriginalVertices.push_back(new _vec3({ -1.f, -0.5f, 0.f })); // 0
-	m_pVecOriginalVertices.push_back(new _vec3({ 1.f, -0.5f, 0.f })); // 1
-	m_pVecOriginalVertices.push_back(new _vec3({ 1.f, 0.5f, 0.f })); // 2
-	m_pVecOriginalVertices.push_back(new _vec3({ -1.f, 0.5f, 0.f })); // 3
+	m_vecOriginalVertices.push_back({ -1.f, -0.5f, 0.f }); // 0
+	m_vecOriginalVertices.push_back({ 1.f, -0.5f, 0.f }); // 1
+	m_vecOriginalVertices.push_back({ 1.f, 0.5f, 0.f }); // 2
+	m_vecOriginalVertices.push_back({ -1.f, 0.5f, 0.f }); // 3
 
 	// 렌더 정보 버텍스에 같은 크기만큼 복사
-	for (size_t idx = 0; idx < m_pVecOriginalVertices.size(); ++idx)
+	for (size_t idx = 0; idx < m_vecOriginalVertices.size(); ++idx)
 	{
-		m_pVecRenderVertices.push_back(new _vec3);
+		m_vecRenderVertices.push_back({ 0.f, 0.f, 0.f });
 	}
 
 	// 인덱스 정보 초기화
