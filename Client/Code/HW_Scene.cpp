@@ -52,8 +52,10 @@ int HW_Scene::Update()
 
 void HW_Scene::Late_Update()
 {
-    CHW_CollisionMgr::Get_Instance()->CheckCollision_SAT(HW_OBJ_BALL, HW_OBJ_STICK);
-    CHW_CollisionMgr::Get_Instance()->CheckCollision_SAT(HW_OBJ_BALL, HW_OBJ_BRICK);
+    //CHW_CollisionMgr::Get_Instance()->CheckCollision_SAT(HW_OBJ_BALL, HW_OBJ_STICK); //Ball이 Src여야함
+    //CHW_CollisionMgr::Get_Instance()->CheckCollision_SAT(HW_OBJ_BALL, HW_OBJ_BRICK);
+    CHW_CollisionMgr::Get_Instance()->CheckCollision_SAT(HW_OBJ_STICK, HW_OBJ_BALL);
+    CHW_CollisionMgr::Get_Instance()->CheckCollision_SAT(HW_OBJ_BRICK, HW_OBJ_BALL);
     CHW_ObjMgr::Get_Instance()->LateUpdate();
 }
 

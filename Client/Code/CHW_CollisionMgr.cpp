@@ -16,27 +16,37 @@ CHW_CollisionMgr::~CHW_CollisionMgr()
 
 void CHW_CollisionMgr::CheckCollision_SAT(HW_OBJ_TYPE TYPE1, HW_OBJ_TYPE TYPE2)
 {
-	const auto& ObjList1 = CHW_ObjMgr::Get_Instance()->GetObjList(TYPE1);
+	//공의 충돌을 처리하는 함수이기 때문에 공과  타 물체간의 충돌만 처리하려고
+	if (!(TYPE1 == HW_OBJ_BALL || TYPE2 == HW_OBJ_BALL))
+		return;
+
+	if (TYPE1 != HW_OBJ_BALL) swap(TYPE1, TYPE2);
+
+	//const auto& ObjList1 = CHW_ObjMgr::Get_Instance()->GetObjList(TYPE1);
+	const auto& BallList = CHW_ObjMgr::Get_Instance()->GetObjList(TYPE1);
 	const auto& ObjList2 = CHW_ObjMgr::Get_Instance()->GetObjList(TYPE2);
 
-	for (auto& Src : ObjList1) {
+	for (auto& ball : BallList) {
 		for (auto& Dst : ObjList2) {
 
 			_vec3 vMTVNormal = { 0.f ,0.f, 0.f }; //SAT충돌을 한다면 MTV정보 받아오기
 			float fMTVValue = 0.f;
 
-			if (IsCollide_SAT(Src, Dst, vMTVNormal, fMTVValue)) {
-				//Src가 반드시 Wall을 가정하고 수행중...
-				dynamic_cast<CHW_CBall*>(Src)->SetDirection_UseNormal(vMTVNormal);
-				dynamic_cast<CHW_CBall*>(Src)->SetPosion_UseMTV(vMTVNormal, fMTVValue);
 
-				
 
-				Src->SetCollide(true);
+
+			if (IsCollide_SAT(ball, Dst, vMTVNormal, fMTVValue)) {
+			
+				dynamic_cast<CHW_CBall*>(ball)->SetDirection_UseNormal(vMTVNormal);
+				dynamic_cast<CHW_CBall*>(ball)->SetPosion_UseMTV(vMTVNormal, fMTVValue);
+		
+
+
+				ball->SetCollide(true);
 				Dst->SetCollide(true);
 			}
 			else {
-				Src->SetCollide(false);
+				ball->SetCollide(false);
 				Dst->SetCollide(false);
 
 			}
@@ -44,18 +54,18 @@ void CHW_CollisionMgr::CheckCollision_SAT(HW_OBJ_TYPE TYPE1, HW_OBJ_TYPE TYPE2)
 	}
 }
 
-bool CHW_CollisionMgr::IsCollide_SAT(const CHW_Obj* pObj1, const CHW_Obj* pObj2, _vec3& vOutMTVDir, float& fOutMTVValue)
+bool CHW_CollisionMgr::IsCollide_SAT(const CHW_Obj* ball, const CHW_Obj* pObj2, _vec3& vOutMTVDir, float& fOutMTVValue)
 {
-	const auto& vecVertexs1 = pObj1->GetWorldPoints();
+	const auto& vecBallVertexs = ball->GetWorldPoints();
 	const auto& vecVertexs2 = pObj2->GetWorldPoints();
 
 	vector<D3DXVECTOR3> edges;
-	edges.reserve(vecVertexs1.size() + vecVertexs2.size());
+	edges.reserve(vecBallVertexs.size() + vecVertexs2.size());
 
 	//CObj1의 모서리
-	for (size_t i = 0; i < vecVertexs1.size(); ++i) {
+	for (size_t i = 0; i < vecBallVertexs.size(); ++i) {
 
-		edges.push_back(vecVertexs1[i] - vecVertexs1[(i + 1) % vecVertexs1.size()]);
+		edges.push_back(vecBallVertexs[i] - vecBallVertexs[(i + 1) % vecBallVertexs.size()]);
 	}
 	//CObj2의 모서리
 	for (size_t i = 0; i < vecVertexs2.size(); ++i) {
@@ -75,7 +85,7 @@ bool CHW_CollisionMgr::IsCollide_SAT(const CHW_Obj* pObj1, const CHW_Obj* pObj2,
 		D3DXVec3Normalize(&vAxis, &vAxis);
 		float fOutMin1, fOutMax1;
 		float fOutMin2, fOutMax2;
-		Project(pObj1, vAxis, fOutMin1, fOutMax1);
+		Project(ball, vAxis, fOutMin1, fOutMax1);
 		Project(pObj2, vAxis, fOutMin2, fOutMax2);
 
 		if (fOutMax1 < fOutMin2 || fOutMax2 < fOutMin1)
@@ -92,8 +102,9 @@ bool CHW_CollisionMgr::IsCollide_SAT(const CHW_Obj* pObj1, const CHW_Obj* pObj2,
 	
 	//MTV 방향 설정
 	//https://kwonvector.tistory.com/59 방향 설정 (이해는 못함)
-	_vec3 Obj1_To_2 = pObj1->GetINFO().vPos - pObj2->GetINFO().vPos;
-	float fDot = D3DXVec3Dot(&Obj1_To_2, &vMTVNormal);
+
+	_vec3 vToBall = ball->GetINFO().vPos - pObj2->GetINFO().vPos;
+	float fDot = D3DXVec3Dot(&vToBall, &vMTVNormal);
 
 	vMTVNormal *= (fDot < 0 ? -1 : 1);
 
