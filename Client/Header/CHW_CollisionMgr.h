@@ -1,4 +1,8 @@
 #pragma once
+
+#include "CHW_ObjMgr.h"
+
+
 class CHW_CollisionMgr
 {
 private:
@@ -7,6 +11,12 @@ private:
 	CHW_CollisionMgr& operator=(CHW_CollisionMgr& rCollision) = delete;
 	~CHW_CollisionMgr();
 
+
+
+public:
+	void CheckCollision_SAT(HW_OBJ_TYPE TYPE1, HW_OBJ_TYPE TYPE2);
+	bool IsCollide_SAT(const CHW_Obj* pObj1, const CHW_Obj* pObj2);
+	void Project(const CHW_Obj* pObj, const D3DXVECTOR3 vAxis, float& fOutMin, float& fOutMax);
 
 
 

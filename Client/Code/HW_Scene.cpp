@@ -24,14 +24,14 @@ void HW_Scene::Initialize()
 
     CHW_BmpMgr::Get_Instance()->Insert_Bmp(L"../Data/Back.bmp", L"Back");
 
-    CHW_ObjMgr::Get_Instance()->AddObject(OBJ_BALL, CHW_AbstractFactory<CHW_CBall>::CreateObj());
+    CHW_ObjMgr::Get_Instance()->AddObject(HW_OBJ_BALL, CHW_AbstractFactory<CHW_CBall>::CreateObj());
 
-    CHW_ObjMgr::Get_Instance()->AddObject(OBJ_STICK, CHW_AbstractFactory<CHW_Stick>::CreateObj());
+    CHW_ObjMgr::Get_Instance()->AddObject(HW_OBJ_STICK, CHW_AbstractFactory<CHW_Stick>::CreateObj());
 
 
     for (size_t i = 0; i < 16; ++i) {
         for (size_t j = 0; j < 2; ++j) {
-            CHW_ObjMgr::Get_Instance()->AddObject(OBJ_BRICK, CHW_AbstractFactory<CHW_Brick>::CreateObj((i+1) * 50, (j+1) * 30));
+            CHW_ObjMgr::Get_Instance()->AddObject(HW_OBJ_BRICK, CHW_AbstractFactory<CHW_Brick>::CreateObj((i+1) * 50, (j+1) * 30));
         }
     }
 

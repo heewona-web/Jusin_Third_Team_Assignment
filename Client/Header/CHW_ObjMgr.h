@@ -2,7 +2,7 @@
 #include "CHW_Obj.h"
 
 
-enum OBJ_TYPE { OBJ_BALL, OBJ_BRICK , OBJ_STICK, OBJ_END };
+enum HW_OBJ_TYPE { HW_OBJ_BALL, HW_OBJ_BRICK , HW_OBJ_STICK, HW_OBJ_END };
 
 
 class CHW_ObjMgr
@@ -16,11 +16,13 @@ private:
 
 
 public:
-	void AddObject(OBJ_TYPE eID, CHW_Obj* pObj);
+	void AddObject(HW_OBJ_TYPE eID, CHW_Obj* pObj);
 	void Update();
 	void LateUpdate();
 	void Render(HDC hDC);
 	void Release();
+
+	const list<CHW_Obj*>& GetObjList(HW_OBJ_TYPE eID) { return m_ObjList[eID]; }
 
 
 public:
@@ -43,7 +45,7 @@ public:
 	}
 
 private:
-	list<CHW_Obj*>			m_ObjList[OBJ_END];
+	list<CHW_Obj*>			m_ObjList[HW_OBJ_END];
 
 	static CHW_ObjMgr* m_pInstance;
 

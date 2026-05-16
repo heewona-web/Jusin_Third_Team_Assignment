@@ -19,6 +19,9 @@ public:
 	virtual void MakeWorldMatrix();
 	virtual void AdjustWorldMatrix(); //WorldMat 적용
 	virtual void RenderVertex(HDC hDC); //WorldMat 적용
+
+public:
+	const vector<_vec3>& GetWorldPoints() const {return m_vWorldPoints;}
 protected:
 	_INFO m_tInfo;
 
