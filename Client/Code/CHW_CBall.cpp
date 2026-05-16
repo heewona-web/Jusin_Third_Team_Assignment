@@ -136,17 +136,22 @@ void CHW_CBall::CheckBoundary()
 		n = { 0, -1, 0 };
 	}
 
-	SetDirection(n);
+	SetDirection_UseNormal(n);
 
 
 }
 
-void CHW_CBall::SetDirection(_vec3 normal)
+void CHW_CBall::SetDirection_UseNormal(_vec3 normal)
 {
 	float fDot = D3DXVec3Dot(&m_vVelocity, &normal);
 	_vec3 vNewDir = m_vVelocity - 2 * fDot * normal;
 
 	D3DXVec3Normalize(&m_tInfo.vDir, &vNewDir);
+}
+
+void CHW_CBall::SetPosion_UseMTV(_vec3 normal, float value)
+{
+	m_tInfo.vPos += normal * value; 
 }
 
 void CHW_CBall::MakeWorldMatrix()

@@ -46,9 +46,6 @@
     <Filter Include="00. MainApp\04. BU\01.Object\01.Actor\02.Tank">
       <UniqueIdentifier>{d2579c1e-02e0-49e3-80e8-c886aa70d0e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00. MainApp\04. BU\01.Object\02.Enemy">
-      <UniqueIdentifier>{9ff90593-174c-4c6e-9570-e0f4b8e18f76}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00. MainApp\04. BU\02.Util\01.RenderUtil">
       <UniqueIdentifier>{c068845a-e78e-4cca-953f-dd306b1b6d81}</UniqueIdentifier>
     </Filter>
@@ -99,6 +96,9 @@
     </Filter>
     <Filter Include="00. MainApp\01. HW\Mgr\CCollisionMgr">
       <UniqueIdentifier>{c876fe91-4c17-4524-a6a6-37296dc8b2ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. MainApp\01. HW\Object\Stick\02.Enemy">
+      <UniqueIdentifier>{9ff90593-174c-4c6e-9570-e0f4b8e18f76}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

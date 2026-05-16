@@ -58,13 +58,17 @@ int CHW_Stick::Update()
 
 void CHW_Stick::KeyInput()
 {
-	if (CHW_KeyMgr::Get_Instance()->KeyPressing(VK_LEFT))
+	if (CHW_KeyMgr::Get_Instance()->KeyPressing('A'))
 		m_tInfo.vPos.x -= m_fSpeed;
-	if (CHW_KeyMgr::Get_Instance()->KeyPressing(VK_RIGHT))
+	if (CHW_KeyMgr::Get_Instance()->KeyPressing('D'))
 		m_tInfo.vPos.x += m_fSpeed;
-	if (CHW_KeyMgr::Get_Instance()->KeyDown(VK_UP))
+	if (CHW_KeyMgr::Get_Instance()->KeyPressing('W'))
+		m_tInfo.vPos.y -= m_fSpeed;
+	if (CHW_KeyMgr::Get_Instance()->KeyPressing('S'))
+		m_tInfo.vPos.y += m_fSpeed;
+	if (CHW_KeyMgr::Get_Instance()->KeyDown('Q'))
 		m_fCurAngle += m_fRotAngle;
-	if (CHW_KeyMgr::Get_Instance()->KeyDown(VK_DOWN))
+	if (CHW_KeyMgr::Get_Instance()->KeyDown('E'))
 		m_fCurAngle -= m_fRotAngle;
 
 
@@ -74,6 +78,13 @@ void CHW_Stick::KeyInput()
 	}
 	if (m_tInfo.vPos.x + m_vOriginScale.x > WINCX) {
 		m_tInfo.vPos.x = static_cast<float>(WINCX) - m_vOriginScale.x;
+	}
+
+	if (m_tInfo.vPos.y - m_vOriginScale.y < 0) {
+		m_tInfo.vPos.y = m_vOriginScale.y;
+	}
+	if (m_tInfo.vPos.y + m_vOriginScale.y > WINCY) {
+		m_tInfo.vPos.y = static_cast<float>(WINCY) - m_vOriginScale.y;
 	}
 }
 void CHW_Stick::LateUpdate()

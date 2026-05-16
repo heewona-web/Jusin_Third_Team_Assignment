@@ -31,7 +31,12 @@ void CHW_CollisionMgr::CheckCollision_SAT(HW_OBJ_TYPE TYPE1, HW_OBJ_TYPE TYPE2)
 
 			if (IsCollide_SAT(Src, Dst, vMTVNormal, fMTVValue)) {
 				//Src가 반드시 Wall을 가정하고 수행중...
-				dynamic_cast<CHW_CBall*>(Src)->SetDirection(vMTVNormal);
+				dynamic_cast<CHW_CBall*>(Src)->SetDirection_UseNormal(vMTVNormal);
+				dynamic_cast<CHW_CBall*>(Src)->SetPosion_UseMTV(vMTVNormal, fMTVValue);
+				// 충돌 직후는 잘 감지 그런데 내부에서 체류하면 계속 충돌충돌충돌 .. 
+				// 임시로 MTV 밀어주기 .. 근데 방향 들어오는 방향 나가는 방향 생각해야하는데 일단 해봄
+				
+
 				Src->SetCollide(true);
 				Dst->SetCollide(true);
 			}

@@ -14,7 +14,8 @@ public:
 
 public:
 	void CheckBoundary();
-	void SetDirection(_vec3 normal );
+	void SetDirection_UseNormal(_vec3 normal );
+	void SetPosion_UseMTV(_vec3 normal, float value);
 	void MakeWorldMatrix() override;
 
 private:
