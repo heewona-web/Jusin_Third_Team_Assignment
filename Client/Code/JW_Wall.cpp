@@ -14,7 +14,7 @@ void JW_Wall::Initialize()
 {
 	m_tInfo.vPos.x = WINCX;
 	m_tInfo.vPos.y = 0.f;
-	m_fSpeed = 0.2f;
+	m_fSpeed = 2.f;
 
 	m_fWidth = 60.f;
 	m_fGapSize = 250.f;

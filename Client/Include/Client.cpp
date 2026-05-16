@@ -58,6 +58,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (nullptr == pMainApp)
         return FALSE;
 
+    DWORD dwTime = GetTickCount();
 
     // 기본 메시지 루프입니다:
     while (true)
@@ -75,9 +76,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
-            pMainApp->Update_MainApp(0.f);
-            pMainApp->LateUpdate_MainApp(0.f);
-            pMainApp->Render_MainApp();
+            if (dwTime + 10 < GetTickCount()) {
+                pMainApp->Update_MainApp(0.f);
+                pMainApp->LateUpdate_MainApp(0.f);
+                pMainApp->Render_MainApp();
+            
+                dwTime = GetTickCount();
+            }
         }
     }
 
