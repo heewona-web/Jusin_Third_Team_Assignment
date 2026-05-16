@@ -7,7 +7,7 @@ CHW_MyBmp::CHW_MyBmp()
 
 CHW_MyBmp::~CHW_MyBmp()
 {
-	Release();
+	//Release();
 }
 
 void CHW_MyBmp::Load_Bmp(const TCHAR* pFilePath)

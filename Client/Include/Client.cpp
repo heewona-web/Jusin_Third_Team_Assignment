@@ -80,7 +80,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             pMainApp->Render_MainApp();
         }
     }
-
+    pMainApp->Release();
     return (int) msg.wParam;
 }
 

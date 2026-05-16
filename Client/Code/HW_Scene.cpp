@@ -81,7 +81,7 @@ void HW_Scene::Render(HDC hDC)
 void HW_Scene::Release()
 {
 
-    CHW_BmpMgr::Destroy_Instance();
+    CHW_CollisionMgr::Destroy_Instance();
     CHW_KeyMgr::Destroy_Instance();
     CHW_ObjMgr::Destroy_Instance();
 
