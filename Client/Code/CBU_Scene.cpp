@@ -59,6 +59,18 @@ void CBU_Scene::Late_Update(void)
 			}
 		}
 	}
+	// 스포너와 재료 충돌처리
+	for (auto pSpawner : CBU_ObjectManager::GetInstance()->GetObjectVector(BU_OBJID::SPAWNER))
+	{
+		for (auto pIngredient : CBU_ObjectManager::GetInstance()->GetObjectVector(BU_OBJID::INGREDIENT))
+		{
+			if (pIngredient->GetParentObjectP() && CBU_CollisionUtil::CheckObjAndObj(pSpawner, pIngredient))
+			{
+				pSpawner->OnCollision(pIngredient);
+				pIngredient->OnCollision(pSpawner);
+			}
+		}
+	}
 
 	// 사망 오브젝트 회수
 	CBU_ObjectManager::GetInstance()->DeleteDeadObj();

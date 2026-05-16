@@ -101,13 +101,13 @@ void CBU_Spawner::Initialize(void)
 
 void CBU_Spawner::LateUpdate(void)
 {
-	if (m_tInfo.vPos.x < 0.f || m_tInfo.vPos.x > float(WINCX))
+	if ((m_tInfo.vPos.x < 0.f || m_tInfo.vPos.x > float(WINCX)) && !m_pParentObject)
 	{
 		m_tInfo.vDir.x *= -1.f;
 	}
 
 	//ULONGLONG ullCurrentTime = GetTickCount64();
-	if (m_ullLastSpawnTime <= 0)
+	if (m_ullLastSpawnTime <= 0 && !m_pParentObject)
 	{
 		int iRandom = rand() % 100;
 		CBU_Ingredient* pIngredient = nullptr;
@@ -140,5 +140,34 @@ void CBU_Spawner::LateUpdate(void)
 	else
 	{
 		--m_ullLastSpawnTime;
+	}
+}
+
+void CBU_Spawner::OnCollision(CBU_Object* pObj)
+{
+	// 종료 1회 처리하기 위해 parentObject에 등록
+	if (pObj->GetObjType() == BU_OBJID::INGREDIENT && !m_pParentObject)
+	{
+		m_pParentObject = pObj->GetParentObjectP();
+		pObj->GetParentObjectP()->AddRef();
+
+		// 충돌했을 때 Pos 값을 m_pParentObject에서의 상대값으로 업데이트 해줘야함
+		m_tInfo.vPos = m_tInfo.vPos - m_pParentObject->GetInfo().vPos;
+
+		// 크자이 값을 고정하여 저장
+		_matrix matScale;
+		D3DXMatrixScaling(&matScale, m_vecScale.x, m_vecScale.y, m_vecScale.z);
+		_matrix matRot;
+		D3DXMatrixRotationZ(&matRot, m_fAngle);
+		_matrix matTrans;
+		D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z);
+		m_matFixed = matScale * matRot * matTrans;
+
+		// 공전 값을 현재 각도의 -만큼으로 저장해둬야 회전 오차가 사라짐
+		m_fOrbitOffset = -m_pParentObject->GetAngle();
+		m_fOrbitOffsetX = -m_pParentObject->GetAngleX();
+
+		// 스폰 종료 처리 추가(혹시 모르니)
+		m_ullLastSpawnTime = -1;
 	}
 }

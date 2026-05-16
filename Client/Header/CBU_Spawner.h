@@ -13,7 +13,7 @@ public:
 	//void Render(HDC hDC) const override;
 	//void Free(void) override;
 
-	void OnCollision(CBU_Object* pObj) override {}
+	void OnCollision(CBU_Object* pObj) override;
 
 private:
 	ULONGLONG m_ullSpawnCoolTime; // 스폰 간격
