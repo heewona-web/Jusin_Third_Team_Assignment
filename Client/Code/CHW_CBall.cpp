@@ -136,6 +136,8 @@ void CHW_CBall::CheckBoundary()
 		n = { 0, -1, 0 };
 	}
 
+
+	//밀어내기 적용해야할듯
 	SetDirection_UseNormal(n);
 
 

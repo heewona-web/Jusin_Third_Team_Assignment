@@ -46,7 +46,7 @@ void CMainApp::Render_MainApp()
 	CSceneMgr::Get_Instance()->Render(m_BackDC);
 	BitBlt(m_hDC, 0, 0, WINCX, WINCY, m_BackDC, 0, 0, SRCCOPY);
 
-
+	ReleaseDC(g_hWnd, m_hDC);
 	//m_pDeviceClass->Render_End();
 }
 

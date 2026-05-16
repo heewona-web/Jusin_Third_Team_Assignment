@@ -95,6 +95,16 @@ bool CHW_CollisionMgr::IsCollide_SAT(const CHW_Obj* pObj1, const CHW_Obj* pObj2,
 	}
 	//충돌이 일어남
 	
+	//MTV 방향 설정
+	//https://kwonvector.tistory.com/59 방향 설정 (이해는 못함)
+	_vec3 Obj1_To_2 = pObj1->GetINFO().vPos - pObj2->GetINFO().vPos;
+	float fDot = D3DXVec3Dot(&Obj1_To_2, &vMTVNormal);
+
+	vMTVNormal *= (fDot < 0 ? -1 : 1);
+	
+	
+
+
 	//MTV 값 전달
 	fOutMTVValue = fMTVMin;
 	vOutMTVDir = vMTVNormal;

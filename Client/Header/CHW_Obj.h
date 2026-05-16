@@ -24,6 +24,7 @@ public:
 	const bool GetCollide() { return m_bIsCollide; }
 public:
 	const vector<_vec3>& GetWorldPoints() const {return m_vWorldPoints;}
+	const _INFO& GetINFO() const {return m_tInfo;}
 protected:
 
 	bool m_bIsCollide;
