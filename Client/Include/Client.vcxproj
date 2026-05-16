@@ -149,13 +149,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\CBU_Spawner.h" />
     <ClInclude Include="..\Header\CHW_BmpMgr.h" />
     <ClInclude Include="..\Header\CHW_CBall.h" />
     <ClInclude Include="..\Header\BU_Define.h" />
     <ClInclude Include="..\Header\CBU_Actor.h" />
     <ClInclude Include="..\Header\CBU_CollisionUtil.h" />
     <ClInclude Include="..\Header\CBU_KeyManager.h" />
-    <ClInclude Include="..\Header\CBU_MainGame.h" />
     <ClInclude Include="..\Header\CBU_Object.h" />
     <ClInclude Include="..\Header\CBU_ObjectManager.h" />
     <ClInclude Include="..\Header\CBU_Player.h" />
@@ -177,12 +177,12 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\CBU_Spawner.cpp" />
     <ClCompile Include="..\Code\CHW_BmpMgr.cpp" />
     <ClCompile Include="..\Code\CHW_CBall.cpp" />
     <ClCompile Include="..\Code\CBU_Actor.cpp" />
     <ClCompile Include="..\Code\CBU_CollisionUtil.cpp" />
     <ClCompile Include="..\Code\CBU_KeyManager.cpp" />
-    <ClCompile Include="..\Code\CBU_MainGame.cpp" />
     <ClCompile Include="..\Code\CBU_Object.cpp" />
     <ClCompile Include="..\Code\CBU_ObjectManager.cpp" />
     <ClCompile Include="..\Code\CBU_Player.cpp" />

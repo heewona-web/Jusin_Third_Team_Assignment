@@ -2,7 +2,7 @@
 #include "CBU_KeyManager.h"
 #include "CBU_VectorUtil.h"
 
-CBU_Actor::CBU_Actor()
+CBU_Actor::CBU_Actor() : CBU_Object(BU_OBJID::PLAYER)
 {
 
 }
@@ -13,6 +13,8 @@ CBU_Actor::~CBU_Actor()
 
 void CBU_Actor::Initialize(void) 
 {
+	// 크기 정보 초기화
+	m_vecScale = { 20.f, 20.f, 20.f };
 	// 위치 정보 초기화
 	m_tInfo.vPos = {400.f, 500.f, 0.f};
 	m_tInfo.vDir = { 0.f, 0.f, 0.f };
@@ -39,69 +41,49 @@ void CBU_Actor::Initialize(void)
 
 void CBU_Actor::Update(void) 
 {
+	// 방향 벡터 초기화
+	m_tInfo.vDir = { 0.f, 0.f, 0.f };
 	if (CBU_KeyManager::GetInstance()->KeyPressing('W'))
 	{
 		m_tInfo.vDir = CBU_VectorUtil::GetXZProjectedVector(m_tInfo.vLook);
-		m_tInfo.vPos += m_tInfo.vDir * (m_fSpeed*0.1f);
+		//m_tInfo.vPos += m_tInfo.vDir * (m_fSpeed*0.1f);
 	}
-	else if (CBU_KeyManager::GetInstance()->KeyPressing('S'))
+	if (CBU_KeyManager::GetInstance()->KeyPressing('S'))
 	{
 		m_tInfo.vDir = -CBU_VectorUtil::GetXZProjectedVector(m_tInfo.vLook);
-		m_tInfo.vPos += m_tInfo.vDir * (m_fSpeed * 0.3f * 0.1f);
+		//m_tInfo.vPos += m_tInfo.vDir * (m_fSpeed * 0.3f * 0.1f);
 	}
-	else if (CBU_KeyManager::GetInstance()->KeyPressing('A'))
+	if (CBU_KeyManager::GetInstance()->KeyPressing('A'))
 	{
 		// 왼쪽으로 가려면 아래 방향과 외적
 		_vec3 vecXZProjectedLook = CBU_VectorUtil::GetXZProjectedVector(m_tInfo.vLook);
 		D3DXVec3Cross(&m_tInfo.vDir, &CBU_Object::UPVEC, &vecXZProjectedLook);
-		m_tInfo.vPos += m_tInfo.vDir * (m_fSpeed * 0.5f);
+		//m_tInfo.vPos += m_tInfo.vDir * (m_fSpeed * 0.5f);
 	}
-	else if (CBU_KeyManager::GetInstance()->KeyPressing('D'))
+	if (CBU_KeyManager::GetInstance()->KeyPressing('D'))
 	{
 		// 오른쪽으로 가려면 윗 방향과 외적
 		_vec3 vecXZProjectedLook = CBU_VectorUtil::GetXZProjectedVector(m_tInfo.vLook);
 		D3DXVec3Cross(&m_tInfo.vDir, &CBU_Object::DOWNVEC, &vecXZProjectedLook);
-		m_tInfo.vPos += m_tInfo.vDir * (m_fSpeed * 0.5f);
+		//m_tInfo.vPos += m_tInfo.vDir * (m_fSpeed * 0.5f);
 	}
-	else
+
+	if (CBU_KeyManager::GetInstance()->KeyPressing(VK_LEFT))
 	{
-		
+		// 반시계로 회전
+		m_fAngle -= 0.01f * D3DX_PI;
 	}
-
-	// 월드 변환 행렬 업데이트
-	_matrix matScale;
-	D3DXMatrixScaling(&matScale, 20.f, 20.f, 20.f);
-	_matrix matTrans;
-	D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z);
-	_matrix matRot;
-	D3DXMatrixRotationZ(&matRot, m_fAngle);
-
-	m_tInfo.matWorld = matScale * matRot * matTrans;
-
-	// 정점 업데이트
-	for (size_t idx = 0; idx < m_pVecOriginalVertices.size(); ++idx)
+	if (CBU_KeyManager::GetInstance()->KeyPressing(VK_RIGHT))
 	{
-		D3DXVec3TransformCoord(m_pVecRenderVertices.at(idx), m_pVecOriginalVertices.at(idx), &m_tInfo.matWorld);
+		// 시계로 회전
+		m_fAngle += 0.01f * D3DX_PI;
 	}
+
+	// 월드 변환 행렬 업데이트(크자이)
+	CBU_Object::Update();
 }
 
 void CBU_Actor::LateUpdate(void) 
 {
 
-}
-
-void CBU_Actor::Render(HDC hDC) const 
-{
-	// 점 기준 원 출력. 대신 거리 비례해서 크기를 조정할 순 없을까?
-	// 버텍스 프로세싱은 그런 원리가 아님. 불가능
-	RECT rect = {m_tInfo.vPos.x};
-	Ellipse(hDC, rect.left, rect.top, rect.right, rect.bottom);
-	for (auto pIndices : m_pIndicesList)
-	{
-		MoveToEx(hDC, m_pVecRenderVertices.at(pIndices->_0)->x, m_pVecRenderVertices.at(pIndices->_0)->y, nullptr);
-		LineTo(hDC, m_pVecRenderVertices.at(pIndices->_1)->x, m_pVecRenderVertices.at(pIndices->_1)->y);
-		LineTo(hDC, m_pVecRenderVertices.at(pIndices->_2)->x, m_pVecRenderVertices.at(pIndices->_2)->y);
-		LineTo(hDC, m_pVecRenderVertices.at(pIndices->_0)->x, m_pVecRenderVertices.at(pIndices->_0)->y);
-	}
-	
 }
