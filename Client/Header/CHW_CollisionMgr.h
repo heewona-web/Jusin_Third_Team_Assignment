@@ -15,7 +15,7 @@ private:
 
 public:
 	void CheckCollision_SAT(HW_OBJ_TYPE TYPE1, HW_OBJ_TYPE TYPE2);
-	bool IsCollide_SAT(const CHW_Obj* pObj1, const CHW_Obj* pObj2);
+	bool IsCollide_SAT(const CHW_Obj* pObj1, const CHW_Obj* pObj2, _vec3& vOutMTVDir, float &fOutMTVValue);
 	void Project(const CHW_Obj* pObj, const D3DXVECTOR3 vAxis, float& fOutMin, float& fOutMax);
 
 

@@ -1,5 +1,8 @@
 #include "CHW_CollisionMgr.h"
 
+#include "CHW_CBall.h"
+
+
 CHW_CollisionMgr* CHW_CollisionMgr::m_pInstance = nullptr;
 
 CHW_CollisionMgr::CHW_CollisionMgr()
@@ -22,8 +25,13 @@ void CHW_CollisionMgr::CheckCollision_SAT(HW_OBJ_TYPE TYPE1, HW_OBJ_TYPE TYPE2)
 			//D3DXVECTOR3 vAxis = { 0, 0, 0 };
 			//float fMinOverlapped = static_cast<float>(INF);
 			//if (IsCollide_SAT(Src, Dst, &vAxis, &fMinOverlapped)) {
-			if (IsCollide_SAT(Src, Dst)) {
 
+			_vec3 vMTVNormal = { 0.f ,0.f, 0.f }; //SAT충돌을 한다면 MTV정보 받아오기
+			float fMTVValue = 0.f;
+
+			if (IsCollide_SAT(Src, Dst, vMTVNormal, fMTVValue)) {
+				//Src가 반드시 Wall을 가정하고 수행중...
+				dynamic_cast<CHW_CBall*>(Src)->SetDirection(vMTVNormal);
 				Src->SetCollide(true);
 				Dst->SetCollide(true);
 			}
@@ -36,7 +44,7 @@ void CHW_CollisionMgr::CheckCollision_SAT(HW_OBJ_TYPE TYPE1, HW_OBJ_TYPE TYPE2)
 	}
 }
 
-bool CHW_CollisionMgr::IsCollide_SAT(const CHW_Obj* pObj1, const CHW_Obj* pObj2)
+bool CHW_CollisionMgr::IsCollide_SAT(const CHW_Obj* pObj1, const CHW_Obj* pObj2, _vec3& vOutMTVDir, float& fOutMTVValue)
 {
 	const auto& vecVertexs1 = pObj1->GetWorldPoints();
 	const auto& vecVertexs2 = pObj2->GetWorldPoints();
@@ -56,6 +64,10 @@ bool CHW_CollisionMgr::IsCollide_SAT(const CHW_Obj* pObj1, const CHW_Obj* pObj2)
 	}
 
 	// 모서리 => 법선 벡터 ( 축 ) 
+
+	float fMTVMin = 0x3f3f3f3f; 
+	_vec3 vMTVNormal = { 0.f, 0.f, 0.f };
+
 	for (const auto& e : edges) {
 
 		D3DXVECTOR3 vAxis;
@@ -69,9 +81,18 @@ bool CHW_CollisionMgr::IsCollide_SAT(const CHW_Obj* pObj1, const CHW_Obj* pObj2)
 		if (fOutMax1 < fOutMin2 || fOutMax2 < fOutMin1)
 			return false;
 
-	}
+		float temp = min(fOutMax1 - fOutMin2, fOutMax2 - fOutMin1); // 겹치치 않게 밀어내기 위한 최소값
+		if (temp < fMTVMin) {
+			fMTVMin = temp;
+			vMTVNormal = vAxis;
+		}
 
-	//MFV 추가해보기
+	}
+	//충돌이 일어남
+	
+	//MTV 값 전달
+	fOutMTVValue = fMTVMin;
+	vOutMTVDir = vMTVNormal;
 
 
 
